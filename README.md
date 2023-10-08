@@ -1,4 +1,4 @@
-#Copyright 2023 Ben Belland (benbelland@gmail.com)
+#authored 2023 Ben Belland (benbelland@gmail.com)
 
 This is the second iteration of my ill fated social app,
 Ogopogo. This time it'll be a JSON based interpreter.
