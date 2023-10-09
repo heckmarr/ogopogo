@@ -33,7 +33,7 @@ fn ui<B: Backend>(f: &mut Frame<B>) {
             Span::styled("test", Style::default().add_modifier(Modifier::ITALIC)),
             Span::raw("."),
         ]),
-        Spans::from(Span::styled("And only a test", Style::default().fg(Color::Red))),
+        Spans::from(Span::styled("And only a test, Esc to end", Style::default().fg(Color::Red))),
     ];
     let final_block = Paragraph::new(text)
         .block(Block::default().title("Paragraph").borders(Borders::ALL))
@@ -49,22 +49,46 @@ use tui::{
   terminal::Terminal,
 };
 use crossterm:: {
-    event::{self, DisableMouseCapture, EnableMouseCapture, Event, KeyCode},
+    event::{self, read, poll, DisableMouseCapture, EnableMouseCapture, Event, KeyCode},
     execute,
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
 };
 
 fn main() -> Result<(), io::Error> {
+
+    //Initialize the terminal
     enable_raw_mode()?;
     let mut stdout = io::stdout();
     execute!(stdout, EnterAlternateScreen, EnableMouseCapture)?;
     let backend = CrosstermBackend::new(stdout);
     let mut terminal = Terminal::new(backend)?;
-    terminal.draw(|f| {
-        ui(f);
-    })?;
 
-    thread::sleep(Duration::from_millis(5000));
+    //loop and poll for events
+    loop {
+        //Draw the terminal
+            terminal.draw(|f| {
+                ui(f);
+            })?;
+      if poll(Duration::from_millis(1_000))? {
+
+          let event = read()?;
+
+          println!("Event::{:?}\r", event);
+
+          if event == Event::Key(KeyCode::Esc.into()) {
+                break;
+            }
+        } else {
+
+
+        }
+
+
+
+    }
+
+
+    //thread::sleep(Duration::from_millis(5000));
 
     //restore terminal
     disable_raw_mode()?;
