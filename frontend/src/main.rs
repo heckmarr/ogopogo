@@ -73,7 +73,7 @@ fn main() -> Result<(), io::Error> {
 
           let event = read()?;
 
-          println!("Event::{:?}\r", event);
+          //println!("Event::{:?}\r", event);
 
           if event == Event::Key(KeyCode::Esc.into()) {
                 break;
