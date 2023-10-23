@@ -69,9 +69,19 @@ fn main() -> Result<(), io::Error> {
             terminal.draw(|f| {
                 ui(f);
             })?;
-      if poll(Duration::from_millis(1_000))? {
+      if poll(Duration::from_millis(100))? {
 
-          let event = read()?;
+          match read()? {
+              Event::Key(_event) => break,
+              Event::Mouse(event) => println!("Cursor at {}x{}", event.column, event.row),
+              Event::FocusGained => println!("Stole focus!"),
+              Event::FocusLost => println!("Lost focus!"),
+              Event::Paste(data) => println!("{:?}", data),
+              Event::Resize(width, height) => println!("New Size {}x{}", width, height),
+        }
+      }
+    }
+          /*
 
           eprintln!("Event::{:?}\r", event);
           if event == Event::Key(KeyCode::Up.into()) {
@@ -85,7 +95,8 @@ fn main() -> Result<(), io::Error> {
               
               
           }
-          if event == Event::Mouse(MouseEvent{kind: Moved, column: 0, row: 0, modifiers: KeyModifiers::NONE}) {
+
+          if event == Event::Mouse(event) {
               let mut frame = terminal.get_frame();
               println!("Doot");
               //frame.set_cursor(event.column, event.row);
@@ -96,11 +107,11 @@ fn main() -> Result<(), io::Error> {
         } else {
 
 
-        }
+        }*/
 
 
 
-    }
+    //}
 
 
     //thread::sleep(Duration::from_millis(5000));
