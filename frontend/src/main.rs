@@ -49,7 +49,7 @@ use tui::{
   terminal::Terminal,
 };
 use crossterm:: {
-    event::{read, poll, DisableMouseCapture, EnableMouseCapture, Event, KeyCode},
+    event::{read, poll, DisableMouseCapture, EnableMouseCapture, KeyModifiers, MouseEvent, MouseEventKind::Moved, Event, KeyCode},
     execute,
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
 };
@@ -85,7 +85,11 @@ fn main() -> Result<(), io::Error> {
               
               
           }
-
+          if event == Event::Mouse(MouseEvent{kind: Moved, column: 0, row: 0, modifiers: KeyModifiers::NONE}) {
+              let mut frame = terminal.get_frame();
+              println!("Doot");
+              //frame.set_cursor(event.column, event.row);
+        }
           if event == Event::Key(KeyCode::Esc.into()) {
                 break;
             }
