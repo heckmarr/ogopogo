@@ -75,10 +75,10 @@ fn main() -> Result<(), io::Error> {
 
           println!("Event::{:?}\r", event);
           if event == Event::Key(KeyCode::Up.into()) {
-              let _ = terminal.draw(|g| {
-                  ui(g);
+              terminal.draw(|f| {
+                  ui(f);
                   println!("doot");
-              });
+              })?;
               
               
           }
