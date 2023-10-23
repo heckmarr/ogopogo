@@ -73,7 +73,15 @@ fn main() -> Result<(), io::Error> {
 
           let event = read()?;
 
-          //println!("Event::{:?}\r", event);
+          println!("Event::{:?}\r", event);
+          if event == Event::Key(KeyCode::Up.into()) {
+              let _ = terminal.draw(|g| {
+                  ui(g);
+                  println!("doot");
+              });
+              
+              
+          }
 
           if event == Event::Key(KeyCode::Esc.into()) {
                 break;
