@@ -73,11 +73,15 @@ fn main() -> Result<(), io::Error> {
 
           let event = read()?;
 
-          println!("Event::{:?}\r", event);
+          eprintln!("Event::{:?}\r", event);
           if event == Event::Key(KeyCode::Up.into()) {
+              let mut stdout = io::stdout();
+              let backend = CrosstermBackend::new(stdout);
+              let mut terminal = Terminal::new(backend)?;
+              let _ = terminal.clear();
               terminal.draw(|f| {
                   ui(f);
-                  println!("doot");
+                  eprintln!("doot");
               })?;
               
               
