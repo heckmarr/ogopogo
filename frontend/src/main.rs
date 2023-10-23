@@ -6,7 +6,7 @@ use tui::{
     text::{Span,Spans},
     Frame,
 };
-fn ui<B: Backend>(f: &mut Frame<B>) {
+fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16) {
     let chunks = Layout::default()
     .direction(Direction::Vertical)
     .margin(1)
@@ -27,13 +27,14 @@ fn ui<B: Backend>(f: &mut Frame<B>) {
     .borders(Borders::ALL);
     f.render_widget(block, chunks[1]);
 
+    let span_styled = format!("And only a test, cursor is at {}x{} Any key to end", c, r);
     let text = vec![
         Spans::from(vec![
             Span::raw("This is a "),
             Span::styled("test", Style::default().add_modifier(Modifier::ITALIC)),
             Span::raw("."),
         ]),
-        Spans::from(Span::styled("And only a test, Any key to end", Style::default().fg(Color::Red))),
+        Spans::from(Span::styled(span_styled, Style::default().fg(Color::Red))),
     ];
     let final_block = Paragraph::new(text)
         .block(Block::default().title("Paragraph").borders(Borders::ALL))
@@ -67,13 +68,22 @@ fn main() -> Result<(), io::Error> {
     loop {
         //Draw the terminal
             terminal.draw(|f| {
-                ui(f);
+                ui(f, 0, 0);
             })?;
       if poll(Duration::from_millis(1_000))? {
 
           match read()? {
               Event::Key(_event) => break,
-              Event::Mouse(event) => println!("Cursor at {}x{}", event.column, event.row),
+              Event::Mouse(event) => {
+             //println!("Cursor at {}x{}", event.column, event.row),
+                let stdout = io::stdout();
+                let backend = CrosstermBackend::new(stdout);
+                let mut terminal = Terminal::new(backend)?;
+                terminal.draw(|f| {
+                    ui(f, event.column, event.row);
+                })?;
+
+            }
               Event::FocusGained => println!("Stole focus!"),
               Event::FocusLost => println!("Lost focus!"),
               Event::Paste(data) => println!("{:?}", data),
