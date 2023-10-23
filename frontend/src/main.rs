@@ -43,13 +43,13 @@ fn ui<B: Backend>(f: &mut Frame<B>) {
 
 }
 
-use std::{io, thread, time::Duration};
+use std::{io, time::Duration};
 use tui::{
     backend::CrosstermBackend,
   terminal::Terminal,
 };
 use crossterm:: {
-    event::{self, read, poll, DisableMouseCapture, EnableMouseCapture, Event, KeyCode},
+    event::{read, poll, DisableMouseCapture, EnableMouseCapture, Event, KeyCode},
     execute,
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
 };
@@ -75,7 +75,7 @@ fn main() -> Result<(), io::Error> {
 
           eprintln!("Event::{:?}\r", event);
           if event == Event::Key(KeyCode::Up.into()) {
-              let mut stdout = io::stdout();
+              let stdout = io::stdout();
               let backend = CrosstermBackend::new(stdout);
               let mut terminal = Terminal::new(backend)?;
               let _ = terminal.clear();
