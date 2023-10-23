@@ -33,7 +33,7 @@ fn ui<B: Backend>(f: &mut Frame<B>) {
             Span::styled("test", Style::default().add_modifier(Modifier::ITALIC)),
             Span::raw("."),
         ]),
-        Spans::from(Span::styled("And only a test, Esc to end", Style::default().fg(Color::Red))),
+        Spans::from(Span::styled("And only a test, Any key to end", Style::default().fg(Color::Red))),
     ];
     let final_block = Paragraph::new(text)
         .block(Block::default().title("Paragraph").borders(Borders::ALL))
@@ -49,7 +49,7 @@ use tui::{
   terminal::Terminal,
 };
 use crossterm:: {
-    event::{read, poll, DisableMouseCapture, EnableMouseCapture, KeyModifiers, MouseEvent, MouseEventKind::Moved, Event, KeyCode},
+    event::{read, poll, DisableMouseCapture, EnableMouseCapture, Event},
     execute,
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
 };
@@ -69,7 +69,7 @@ fn main() -> Result<(), io::Error> {
             terminal.draw(|f| {
                 ui(f);
             })?;
-      if poll(Duration::from_millis(100))? {
+      if poll(Duration::from_millis(1_000))? {
 
           match read()? {
               Event::Key(_event) => break,
@@ -81,37 +81,7 @@ fn main() -> Result<(), io::Error> {
         }
       }
     }
-          /*
 
-          eprintln!("Event::{:?}\r", event);
-          if event == Event::Key(KeyCode::Up.into()) {
-              let stdout = io::stdout();
-              let backend = CrosstermBackend::new(stdout);
-              let mut terminal = Terminal::new(backend)?;
-              let _ = terminal.clear();
-              terminal.draw(|f| {
-                  ui(f);
-              })?;
-              
-              
-          }
-
-          if event == Event::Mouse(event) {
-              let mut frame = terminal.get_frame();
-              println!("Doot");
-              //frame.set_cursor(event.column, event.row);
-        }
-          if event == Event::Key(KeyCode::Esc.into()) {
-                break;
-            }
-        } else {
-
-
-        }*/
-
-
-
-    //}
 
 
     //thread::sleep(Duration::from_millis(5000));
