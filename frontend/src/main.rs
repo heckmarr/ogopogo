@@ -81,7 +81,6 @@ fn main() -> Result<(), io::Error> {
               let _ = terminal.clear();
               terminal.draw(|f| {
                   ui(f);
-                  eprintln!("doot");
               })?;
               
               
