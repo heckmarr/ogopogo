@@ -27,7 +27,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16) {
     .borders(Borders::ALL);
     f.render_widget(block, chunks[1]);
 
-    let span_styled = format!("And only a test, cursor is at {}x{} Any key to end", c, r);
+    let span_styled = format!("And only a test, cursor is at {}cx{}r Any key to end", c, r);
     let text = vec![
         Spans::from(vec![
             Span::raw("This is a "),
@@ -67,6 +67,7 @@ fn main() -> Result<(), io::Error> {
     //loop and poll for events
     loop {
         //Draw the terminal
+            terminal.hide_cursor()?;
             terminal.draw(|f| {
                 ui(f, 0, 0);
             })?;
