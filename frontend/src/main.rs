@@ -1,11 +1,74 @@
 use tui::{
-    backend::Backend,
+    backend::{Backend, CrosstermBackend},
     layout::{Constraint, Alignment, Direction, Layout},
     widgets::{Paragraph, Block, Borders, Wrap},
     style::{Color, Style, Modifier},
     text::{Span,Spans},
+    terminal::Terminal,
     Frame,
 };
+use std::{io, time::Duration};
+use crossterm:: {
+    event::{read, poll, DisableMouseCapture, EnableMouseCapture, Event},
+    execute,
+    terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
+};
+
+
+
+
+fn main() -> Result<(), io::Error> {
+
+    //Initialize the terminal
+    enable_raw_mode()?;
+    let mut stdout = io::stdout();
+    execute!(stdout, EnterAlternateScreen, EnableMouseCapture)?;
+    let backend = CrosstermBackend::new(stdout);
+    let mut terminal = Terminal::new(backend)?;
+
+    //loop and poll for events
+    loop {
+        //Draw the terminal
+            terminal.hide_cursor()?;
+            terminal.draw(|f| {
+                ui(f, 0, 0);
+            })?;
+      if poll(Duration::from_millis(1_000))? {
+        //Poll for events and match them to a read case
+          match read()? {
+              Event::Key(_event) => break,
+              Event::Mouse(event) => {//break out the case code
+                let stdout = io::stdout();
+                let backend = CrosstermBackend::new(stdout);
+                let mut terminal = Terminal::new(backend)?;
+                terminal.draw(|f| {
+                    ui(f, event.column, event.row);
+                })?;
+
+            },
+              Event::FocusGained => println!("Stole focus!"),
+              Event::FocusLost => println!("Lost focus!"),
+              Event::Paste(data) => println!("{:?}", data),
+              Event::Resize(width, height) => println!("New Size {}x{}", width, height),
+        }
+      }
+    }
+
+
+
+
+    //restore terminal
+    disable_raw_mode()?;
+    execute!(
+        terminal.backend_mut(),
+        LeaveAlternateScreen,
+        DisableMouseCapture
+    )?;
+    terminal.show_cursor()?;
+
+    Ok(())
+}
+
 fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16) {
     let chunks = Layout::default()
     .direction(Direction::Vertical)
@@ -42,69 +105,4 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16) {
         .wrap(Wrap {trim: true});
     f.render_widget(final_block, chunks[2]);
 
-}
-
-use std::{io, time::Duration};
-use tui::{
-    backend::CrosstermBackend,
-  terminal::Terminal,
-};
-use crossterm:: {
-    event::{read, poll, DisableMouseCapture, EnableMouseCapture, Event},
-    execute,
-    terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
-};
-
-fn main() -> Result<(), io::Error> {
-
-    //Initialize the terminal
-    enable_raw_mode()?;
-    let mut stdout = io::stdout();
-    execute!(stdout, EnterAlternateScreen, EnableMouseCapture)?;
-    let backend = CrosstermBackend::new(stdout);
-    let mut terminal = Terminal::new(backend)?;
-
-    //loop and poll for events
-    loop {
-        //Draw the terminal
-            terminal.hide_cursor()?;
-            terminal.draw(|f| {
-                ui(f, 0, 0);
-            })?;
-      if poll(Duration::from_millis(1_000))? {
-
-          match read()? {
-              Event::Key(_event) => break,
-              Event::Mouse(event) => {
-             //println!("Cursor at {}x{}", event.column, event.row),
-                let stdout = io::stdout();
-                let backend = CrosstermBackend::new(stdout);
-                let mut terminal = Terminal::new(backend)?;
-                terminal.draw(|f| {
-                    ui(f, event.column, event.row);
-                })?;
-
-            }
-              Event::FocusGained => println!("Stole focus!"),
-              Event::FocusLost => println!("Lost focus!"),
-              Event::Paste(data) => println!("{:?}", data),
-              Event::Resize(width, height) => println!("New Size {}x{}", width, height),
-        }
-      }
-    }
-
-
-
-    //thread::sleep(Duration::from_millis(5000));
-
-    //restore terminal
-    disable_raw_mode()?;
-    execute!(
-        terminal.backend_mut(),
-        LeaveAlternateScreen,
-        DisableMouseCapture
-    )?;
-    terminal.show_cursor()?;
-
-    Ok(())
 }
