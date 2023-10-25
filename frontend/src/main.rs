@@ -14,7 +14,7 @@ use crossterm:: {
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
 };
 
-
+use opencv::prelude::*;
 
 
 fn main() -> Result<(), io::Error> {
