@@ -39,8 +39,10 @@ fn main() -> Result<(), io::Error> {
 
         let _shrunken_ok = Mat::create_rows_cols(&mut ss, 40, 40, CV_8U);
 
-
+        //loop and poll for events
         loop {
+
+
             if cam_ok == false {
                 println!("failed opening the VideoCapture");
                 break;
@@ -60,54 +62,37 @@ fn main() -> Result<(), io::Error> {
             }
 
 
-        }
-
-    }
 
 
-    //loop and poll for events
-    loop {
 
-        let err = cap.read(&mut frame);
-
-        if err.is_ok() {
-            //let ratio = 720.0/33.0;
-            //let _ = resize(&frame, &mut shrunken, (0,0).into(), ratio, ratio, INTER_AREA);
-            //imshow("doot", &shrunken).unwrap();
-    //        if wait_key(5).unwrap() >= 0 {
-    //            break;
-    //        }
-        }else {
-            break;
-        }
-
-        //Draw the terminal
-            terminal.hide_cursor()?;
-            terminal.clear()?;
-            terminal.draw(|f| {
-                ui(f, 0, 0);
-            })?;
-
-        if poll(Duration::from_millis(1_000))? {
-        //Poll for events and match them to a read case
-          match read()? {
-              Event::Key(_event) => break,
-              Event::Mouse(event) => {//break out the case code
-                let stdout = io::stdout();
-                let backend = CrosstermBackend::new(stdout);
-                let mut terminal = Terminal::new(backend)?;
+            //Draw the terminal
+                terminal.hide_cursor()?;
+                terminal.clear()?;
                 terminal.draw(|f| {
-                    ui(f, event.column, event.row);
+                    ui(f, 0, 0);
                 })?;
 
-            },
-              Event::FocusGained => println!("Stole focus!"),
-              Event::FocusLost => println!("Lost focus!"),
-              Event::Paste(data) => println!("{:?}", data),
-              Event::Resize(width, height) => println!("New Size {}x{}", width, height),
-        }
-      }
-    }
+            if poll(Duration::from_millis(10))? {
+                //Poll for events and match them to a read case
+                match read()? {
+                    Event::Key(_event) => break,
+                    Event::Mouse(event) => {//break out the case code
+                        let stdout = io::stdout();
+                        let backend = CrosstermBackend::new(stdout);
+                        let mut terminal = Terminal::new(backend)?;
+                        terminal.draw(|f| {
+                            ui(f, event.column, event.row);
+                        })?;
+
+                    },
+                    Event::FocusGained => println!("Stole focus!"),
+                    Event::FocusLost => println!("Lost focus!"),
+                    Event::Paste(data) => println!("{:?}", data),
+                    Event::Resize(width, height) => println!("New Size {}x{}", width, height),
+                }
+            }
+        }//end loop
+    }//end unsafe
 
 
 
