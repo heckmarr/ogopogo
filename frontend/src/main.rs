@@ -16,7 +16,8 @@ use crossterm:: {
 
 use opencv::prelude::*;
 use opencv::videoio;
-use opencv::core::Mat;
+use opencv::core::{Mat, CV_8U};
+use opencv::imgproc::{resize, INTER_AREA};
 use opencv::highgui::{imshow, wait_key};
 
 fn main() -> Result<(), io::Error> {
@@ -30,24 +31,52 @@ fn main() -> Result<(), io::Error> {
 
 
     let mut cap = videoio::VideoCapture::default().unwrap();
-    let mut frame = Mat::default();
-
     let cam_ok = videoio::VideoCapture::open(&mut cap, 0, videoio::CAP_ANY).unwrap();
+
+    let mut frame = Mat::default();
+    let mut ss = Mat::default();
+    unsafe {
+
+        let _shrunken_ok = Mat::create_rows_cols(&mut ss, 40, 40, CV_8U);
+
+
+        loop {
+            if cam_ok == false {
+                println!("failed opening the VideoCapture");
+                break;
+            }
+
+            let err = cap.read(&mut frame);
+            if err.is_ok() {
+                let ssize = ss.size().unwrap();
+                //println!("{:?}", ssize);
+
+                let err = resize(&frame, &mut ss, ssize, 0.0, 0.0, INTER_AREA);
+                err.unwrap();
+                imshow("doot", &ss).unwrap();
+            }
+            if wait_key(5).unwrap() >= 0 {
+                break;
+            }
+
+
+        }
+
+    }
 
 
     //loop and poll for events
     loop {
-        if cam_ok == false {
-            println!("failed opening the VideoCapture");
-            break;
-        }
+
         let err = cap.read(&mut frame);
 
         if err.is_ok() {
-            imshow("doot", &frame).unwrap();
-            if wait_key(5).unwrap() >= 0 {
-                break;
-            }
+            //let ratio = 720.0/33.0;
+            //let _ = resize(&frame, &mut shrunken, (0,0).into(), ratio, ratio, INTER_AREA);
+            //imshow("doot", &shrunken).unwrap();
+    //        if wait_key(5).unwrap() >= 0 {
+    //            break;
+    //        }
         }else {
             break;
         }
@@ -59,7 +88,7 @@ fn main() -> Result<(), io::Error> {
                 ui(f, 0, 0);
             })?;
 
-        if poll(Duration::from_millis(10))? {
+        if poll(Duration::from_millis(1_000))? {
         //Poll for events and match them to a read case
           match read()? {
               Event::Key(_event) => break,
