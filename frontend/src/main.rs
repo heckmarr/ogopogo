@@ -15,7 +15,9 @@ use crossterm:: {
 };
 
 use opencv::prelude::*;
-
+use opencv::videoio;
+use opencv::core::Mat;
+use opencv::highgui::{imshow, wait_key};
 
 fn main() -> Result<(), io::Error> {
 
@@ -26,14 +28,38 @@ fn main() -> Result<(), io::Error> {
     let backend = CrosstermBackend::new(stdout);
     let mut terminal = Terminal::new(backend)?;
 
+
+    let mut cap = videoio::VideoCapture::default().unwrap();
+    let mut frame = Mat::default();
+
+    let cam_ok = videoio::VideoCapture::open(&mut cap, 0, videoio::CAP_ANY).unwrap();
+
+
     //loop and poll for events
     loop {
+        if cam_ok == false {
+            println!("failed opening the VideoCapture");
+            break;
+        }
+        let err = cap.read(&mut frame);
+
+        if err.is_ok() {
+            imshow("doot", &frame).unwrap();
+            if wait_key(5).unwrap() >= 0 {
+                break;
+            }
+        }else {
+            break;
+        }
+
         //Draw the terminal
             terminal.hide_cursor()?;
+            terminal.clear()?;
             terminal.draw(|f| {
                 ui(f, 0, 0);
             })?;
-      if poll(Duration::from_millis(1_000))? {
+
+        if poll(Duration::from_millis(10))? {
         //Poll for events and match them to a read case
           match read()? {
               Event::Key(_event) => break,
