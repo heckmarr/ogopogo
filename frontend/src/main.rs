@@ -52,44 +52,27 @@ fn main() -> Result<(), io::Error> {
             let err = cap.read(&mut frame);
             if err.is_ok() {
                 let ssize = ss.size().unwrap();
-                //println!("{:?}", ssize);
-
                 let err = resize(&frame, &mut ss, ssize, 0.0, 0.0, INTER_AREA);
                 err.unwrap();
-
-//                let v: Vec<u8> = ss.iter().flat_map(|v| v.iter()).cloned().collect();
-                //let two_dee: Vec<Vec<_>> = ss..unwrap();
                 let mut col_num = 0;
                 for row in 0..40 {
-                    //r += 1;
                     println!("{:?}", ss.row(row));
 
                     for col in 0..40 {
-                        col_num += 1;
-                        let row_pos: i32 = (row+(col * col_num)) as i32;
-                        //let row_it = ss.row(row).unwrap().col(col).unwrap();
 
                         let dat: Vec3b = *ss.at_2d(row, col).unwrap();
+                        //get the first blue pixel, print it out, then quit
                         println!("{:?}", dat[0]);
-                        //let mut row_it: MatIter<'_, Vector<u8>> = ss.iter().unwrap();
-                        //if let Some(colours) = row_it.next() {
-                        //   println!("{:?}", colours);
-                        //}
-                        //let ss_snake = row_it.clone();
-                        //                        let row_at: Vec<_> = ss_snake.at<Vec<_>>(row + col*col_num).expect("Not a colour!");
-                        //let row_pt: Point = Point {y: row, x:col*col_num};
-                        //println!("{:?}", row_it);
-
+                        //TODO add a way to collect the values || or act directly on the values now
                         break;
                     }
                     break;
                 }
                 break;
 
-                //let v: Vec<u8> = ss.iter().flat_map(|v| v.iter()).cloned().collect();
-                //println!("{:?}", v);
                 //imshow("doot", &ss).unwrap();
             }
+            break;
 
             if wait_key(5).unwrap() >= 0 {
                 break;
@@ -101,7 +84,7 @@ fn main() -> Result<(), io::Error> {
 
             //Draw the terminal
                 terminal.hide_cursor()?;
-                //terminal.clear()?;
+                terminal.clear()?;
                 terminal.draw(|f| {
                     ui(f, 0, 0);
                 })?;
@@ -135,6 +118,7 @@ fn main() -> Result<(), io::Error> {
     disable_raw_mode()?;
     execute!(
         terminal.backend_mut(),
+        // TODO remove this comment
         //LeaveAlternateScreen,
         DisableMouseCapture
     )?;
