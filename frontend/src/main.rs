@@ -16,7 +16,7 @@ use crossterm:: {
 
 use opencv::prelude::*;
 use opencv::videoio;
-use opencv::core::{Mat, CV_8U};
+use opencv::core::{Mat, CV_8U, Point};
 use opencv::imgproc::{resize, INTER_AREA};
 use opencv::highgui::{imshow, wait_key};
 
@@ -55,8 +55,35 @@ fn main() -> Result<(), io::Error> {
 
                 let err = resize(&frame, &mut ss, ssize, 0.0, 0.0, INTER_AREA);
                 err.unwrap();
-                imshow("doot", &ss).unwrap();
+
+//                let v: Vec<u8> = ss.iter().flat_map(|v| v.iter()).cloned().collect();
+                let two_dee: Vec<Vec<(u8, u8, u8)>>= ss.to_vec_2d().unwrap();
+                let mut col_num = 0;
+                for row in 0..40 {
+                    //r += 1;
+                    println!("{:?}", ss.row(row));
+
+                    for col in 0..40 {
+                        col_num += 1;
+                        let row_pos: usize = (row+(col * col_num)) as usize;
+                        //let row_it = ss.row(row).unwrap().col(col).unwrap();
+                        let row_it = &two_dee[row_pos];
+                        //let ss_snake = row_it.clone();
+                        //                        let row_at: Vec<_> = ss_snake.at<Vec<_>>(row + col*col_num).expect("Not a colour!");
+                        //let row_pt: Point = Point {y: row, x:col*col_num};
+                        println!("{:?}", row_it);
+
+                        break;
+                    }
+                    break;
+                }
+                break;
+
+                //let v: Vec<u8> = ss.iter().flat_map(|v| v.iter()).cloned().collect();
+                //println!("{:?}", v);
+                //imshow("doot", &ss).unwrap();
             }
+            break;
             if wait_key(5).unwrap() >= 0 {
                 break;
             }
@@ -64,7 +91,7 @@ fn main() -> Result<(), io::Error> {
 
 
 
-
+/*
             //Draw the terminal
                 terminal.hide_cursor()?;
                 terminal.clear()?;
@@ -90,7 +117,7 @@ fn main() -> Result<(), io::Error> {
                     Event::Paste(data) => println!("{:?}", data),
                     Event::Resize(width, height) => println!("New Size {}x{}", width, height),
                 }
-            }
+            }*/
         }//end loop
     }//end unsafe
 
