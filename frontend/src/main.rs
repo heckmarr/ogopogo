@@ -16,9 +16,10 @@ use crossterm:: {
 
 use opencv::prelude::*;
 use opencv::videoio;
-use opencv::core::{Mat, CV_8U, Point};
+use opencv::core::{Mat, CV_8U, Point, Vector, Vec3b, MatIter};
 use opencv::imgproc::{resize, INTER_AREA};
 use opencv::highgui::{imshow, wait_key};
+
 
 fn main() -> Result<(), io::Error> {
 
@@ -57,7 +58,7 @@ fn main() -> Result<(), io::Error> {
                 err.unwrap();
 
 //                let v: Vec<u8> = ss.iter().flat_map(|v| v.iter()).cloned().collect();
-                let two_dee: Vec<Vec<(u8, u8, u8)>>= ss.to_vec_2d().unwrap();
+                //let two_dee: Vec<Vec<_>> = ss..unwrap();
                 let mut col_num = 0;
                 for row in 0..40 {
                     //r += 1;
@@ -65,13 +66,19 @@ fn main() -> Result<(), io::Error> {
 
                     for col in 0..40 {
                         col_num += 1;
-                        let row_pos: usize = (row+(col * col_num)) as usize;
+                        let row_pos: i32 = (row+(col * col_num)) as i32;
                         //let row_it = ss.row(row).unwrap().col(col).unwrap();
-                        let row_it = &two_dee[row_pos];
+
+                        let dat: Vec3b = *ss.at_2d(row, col).unwrap();
+                        println!("{:?}", dat[0]);
+                        //let mut row_it: MatIter<'_, Vector<u8>> = ss.iter().unwrap();
+                        //if let Some(colours) = row_it.next() {
+                        //   println!("{:?}", colours);
+                        //}
                         //let ss_snake = row_it.clone();
                         //                        let row_at: Vec<_> = ss_snake.at<Vec<_>>(row + col*col_num).expect("Not a colour!");
                         //let row_pt: Point = Point {y: row, x:col*col_num};
-                        println!("{:?}", row_it);
+                        //println!("{:?}", row_it);
 
                         break;
                     }
@@ -83,7 +90,7 @@ fn main() -> Result<(), io::Error> {
                 //println!("{:?}", v);
                 //imshow("doot", &ss).unwrap();
             }
-            break;
+
             if wait_key(5).unwrap() >= 0 {
                 break;
             }
@@ -91,10 +98,10 @@ fn main() -> Result<(), io::Error> {
 
 
 
-/*
+
             //Draw the terminal
                 terminal.hide_cursor()?;
-                terminal.clear()?;
+                //terminal.clear()?;
                 terminal.draw(|f| {
                     ui(f, 0, 0);
                 })?;
@@ -117,7 +124,7 @@ fn main() -> Result<(), io::Error> {
                     Event::Paste(data) => println!("{:?}", data),
                     Event::Resize(width, height) => println!("New Size {}x{}", width, height),
                 }
-            }*/
+            }
         }//end loop
     }//end unsafe
 
@@ -128,7 +135,7 @@ fn main() -> Result<(), io::Error> {
     disable_raw_mode()?;
     execute!(
         terminal.backend_mut(),
-        LeaveAlternateScreen,
+        //LeaveAlternateScreen,
         DisableMouseCapture
     )?;
     terminal.show_cursor()?;
