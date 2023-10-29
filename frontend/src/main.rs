@@ -55,21 +55,19 @@ fn main() -> Result<(), io::Error> {
                 let ssize = ss.size().unwrap();
                 let err = resize(&frame, &mut ss, ssize, 0.0, 0.0, INTER_AREA);
                 err.unwrap();
-                let mut col_num = 0;
+
                 let mut r = 0;
                 let mut c = 0;
-                for row in 0..40 {
+                for _row in 0..40 {
                     //println!("{:?}", ss.row(row));
 
-                    for col in 0..40 {
+                    for _col in 0..40 {
 
                         let dat: Vec3b = *ss.at_2d(r, c).expect("Out of bounds!");
                         //get the first blue pixel, print it out, then quit
                         let ur = r as usize;
                         let uc = c as usize;
                         vector_colours[ur][uc] = dat;
-                        //print!("{:?}", dat[0]);
-                        //TODO add a way to collect the values || or act directly on the values now
                         //break;
                         c += 1;
 
@@ -94,7 +92,7 @@ fn main() -> Result<(), io::Error> {
 
             //Draw the terminal
                 terminal.hide_cursor()?;
-                terminal.clear()?;
+                //terminal.clear()?;
                 terminal.draw(|f| {
                     ui(f, 0, 0, vector_colours);
                 })?;
@@ -168,7 +166,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     let block = Paragraph::new(Spans::from(cam_span))
     .block(Block::default()
     .title("Block 2")
-    .borders(Borders::ALL));
+    .borders(Borders::ALL)).wrap(Wrap {trim: false});
     f.render_widget(block, chunks[1]);
 
     let span_styled = format!("And only a test, cursor is at {}cx{}r Any key to end", c, r);
