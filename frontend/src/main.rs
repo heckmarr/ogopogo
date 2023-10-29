@@ -78,11 +78,11 @@ fn main() -> Result<(), io::Error> {
                     r += 1;
                     //break;
                 }
-                break;
+                //break;
 
                 //imshow("doot", &ss).unwrap();
             }
-            break;
+            //break;
 
             if wait_key(5).unwrap() >= 0 {
                 break;
@@ -129,7 +129,7 @@ fn main() -> Result<(), io::Error> {
     execute!(
         terminal.backend_mut(),
         // TODO remove this comment
-        //LeaveAlternateScreen,
+        LeaveAlternateScreen,
         DisableMouseCapture
     )?;
     terminal.show_cursor()?;
