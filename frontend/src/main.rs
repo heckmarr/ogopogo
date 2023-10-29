@@ -62,11 +62,11 @@ fn main() -> Result<(), io::Error> {
 
                         let dat: Vec3b = *ss.at_2d(row, col).unwrap();
                         //get the first blue pixel, print it out, then quit
-                        println!("{:?}", dat[0]);
+                        print!("{:?}", dat[0]);
                         //TODO add a way to collect the values || or act directly on the values now
-                        break;
+                        //break;
                     }
-                    break;
+                    //break;
                 }
                 break;
 
