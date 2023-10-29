@@ -43,6 +43,7 @@ fn main() -> Result<(), io::Error> {
         //loop and poll for events
         loop {
 
+            let mut vector_colours: [[Vec3b ;40]; 40] = [[Vec3b::default(); 40]; 40];
 
             if cam_ok == false {
                 println!("failed opening the VideoCapture");
@@ -55,14 +56,19 @@ fn main() -> Result<(), io::Error> {
                 let err = resize(&frame, &mut ss, ssize, 0.0, 0.0, INTER_AREA);
                 err.unwrap();
                 let mut col_num = 0;
+                let mut r = 0;
+                let mut c = 0;
                 for row in 0..40 {
-                    println!("{:?}", ss.row(row));
-
+                    //println!("{:?}", ss.row(row));
+                    r += 1;
                     for col in 0..40 {
-
-                        let dat: Vec3b = *ss.at_2d(row, col).unwrap();
+                        c += 1;
+                        let dat: Vec3b = *ss.at_2d(r, c).unwrap();
                         //get the first blue pixel, print it out, then quit
-                        print!("{:?}", dat[0]);
+                        let ur = r as usize;
+                        let uc = c as usize;
+                        vector_colours[ur][uc] = dat;
+                        //print!("{:?}", dat[0]);
                         //TODO add a way to collect the values || or act directly on the values now
                         //break;
                     }
@@ -86,7 +92,7 @@ fn main() -> Result<(), io::Error> {
                 terminal.hide_cursor()?;
                 terminal.clear()?;
                 terminal.draw(|f| {
-                    ui(f, 0, 0);
+                    ui(f, 0, 0, vector_colours);
                 })?;
 
             if poll(Duration::from_millis(10))? {
@@ -98,7 +104,7 @@ fn main() -> Result<(), io::Error> {
                         let backend = CrosstermBackend::new(stdout);
                         let mut terminal = Terminal::new(backend)?;
                         terminal.draw(|f| {
-                            ui(f, event.column, event.row);
+                            ui(f, event.column, event.row, vector_colours);
                         })?;
 
                     },
@@ -127,7 +133,7 @@ fn main() -> Result<(), io::Error> {
     Ok(())
 }
 
-fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16) {
+fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 40]) {
     let chunks = Layout::default()
     .direction(Direction::Vertical)
     .margin(1)
