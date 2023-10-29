@@ -36,55 +36,51 @@ fn main() -> Result<(), io::Error> {
 
     let mut frame = Mat::default();
     let mut ss = Mat::default();
-    unsafe {
+    unsafe {let _shrunken_ok = Mat::create_rows_cols(&mut ss, 40, 40, CV_8U);};
 
-        let _shrunken_ok = Mat::create_rows_cols(&mut ss, 40, 40, CV_8U);
+    //loop and poll for events
+    loop {
 
-        //loop and poll for events
-        loop {
+        let mut vector_colours: [[Vec3b ;40]; 40] = [[Vec3b::default(); 40]; 40];
 
-            let mut vector_colours: [[Vec3b ;40]; 40] = [[Vec3b::default(); 40]; 40];
+        if cam_ok == false {
+            println!("failed opening the VideoCapture");
+            break;
+        }
 
-            if cam_ok == false {
-                println!("failed opening the VideoCapture");
-                break;
-            }
+        let err = cap.read(&mut frame);
+        if err.is_ok() {
+            let ssize = ss.size().unwrap();
+            let err = resize(&frame, &mut ss, ssize, 0.0, 0.0, INTER_AREA);
+            err.unwrap();
 
-            let err = cap.read(&mut frame);
-            if err.is_ok() {
-                let ssize = ss.size().unwrap();
-                let err = resize(&frame, &mut ss, ssize, 0.0, 0.0, INTER_AREA);
-                err.unwrap();
+            let mut r = 0;
+            let mut c = 0;
+            for _row in 0..40 {
+                //println!("{:?}", ss.row(row));
 
-                let mut r = 0;
-                let mut c = 0;
-                for _row in 0..40 {
-                    //println!("{:?}", ss.row(row));
+                for _col in 0..40 {
 
-                    for _col in 0..40 {
-
-                        let dat: Vec3b = *ss.at_2d(r, c).expect("Out of bounds!");
-                        //get the first blue pixel, print it out, then quit
-                        let ur = r as usize;
-                        let uc = c as usize;
-                        vector_colours[ur][uc] = dat;
-                        //break;
-                        c += 1;
-
-                    }
-                    c = 0;
-                    r += 1;
+                    let dat: Vec3b = *ss.at_2d(r, c).expect("Out of bounds!");
+                    //get the first blue pixel, print it out, then quit
+                    let ur = r as usize;
+                    let uc = c as usize;
+                    vector_colours[ur][uc] = dat;
                     //break;
-                }
-                //break;
+                    c += 1;
 
-                //imshow("doot", &ss).unwrap();
+                }
+                c = 0;
+                r += 1;
+                //break;
             }
             //break;
+        }
+            //imshow("doot", &ss).unwrap();
 
-            if wait_key(5).unwrap() >= 0 {
-                break;
-            }
+        if wait_key(5).unwrap() >= 0 {
+            break;
+        }
 
 
 
@@ -117,7 +113,6 @@ fn main() -> Result<(), io::Error> {
                 }
             }
         }//end loop
-    }//end unsafe
 
 
 
