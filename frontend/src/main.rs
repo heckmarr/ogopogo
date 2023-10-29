@@ -60,10 +60,10 @@ fn main() -> Result<(), io::Error> {
                 let mut c = 0;
                 for row in 0..40 {
                     //println!("{:?}", ss.row(row));
-                    r += 1;
+
                     for col in 0..40 {
-                        c += 1;
-                        let dat: Vec3b = *ss.at_2d(r, c).unwrap();
+
+                        let dat: Vec3b = *ss.at_2d(r, c).expect("Out of bounds!");
                         //get the first blue pixel, print it out, then quit
                         let ur = r as usize;
                         let uc = c as usize;
@@ -71,7 +71,11 @@ fn main() -> Result<(), io::Error> {
                         //print!("{:?}", dat[0]);
                         //TODO add a way to collect the values || or act directly on the values now
                         //break;
+                        c += 1;
+
                     }
+                    c = 0;
+                    r += 1;
                     //break;
                 }
                 break;
@@ -149,9 +153,22 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     .title("Block 1")
     .borders(Borders::ALL);
     f.render_widget(block, chunks[0]);
-    let block = Block::default()
+    let mut cam_span = vec![];
+
+        for r in 0..40 {
+
+                for c in 0..40 {
+
+                    cam_span.push(Span::styled(" ", Style::default().bg(Color::Rgb(vector_colours[r][c][2], vector_colours[r][c][1], vector_colours[r][c][0]))));
+                }
+                cam_span.push(Span::raw("\n"));
+            };
+
+
+    let block = Paragraph::new(Spans::from(cam_span))
+    .block(Block::default()
     .title("Block 2")
-    .borders(Borders::ALL);
+    .borders(Borders::ALL));
     f.render_widget(block, chunks[1]);
 
     let span_styled = format!("And only a test, cursor is at {}cx{}r Any key to end", c, r);
@@ -160,6 +177,8 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
             Span::raw("This is a "),
             Span::styled("test", Style::default().add_modifier(Modifier::ITALIC)),
             Span::raw("."),
+
+
         ]),
         Spans::from(Span::styled(span_styled, Style::default().fg(Color::Red))),
     ];
