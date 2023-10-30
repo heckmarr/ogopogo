@@ -16,9 +16,9 @@ use crossterm:: {
 
 use opencv::prelude::*;
 use opencv::videoio;
-use opencv::core::{Mat, CV_8U, Point, Vector, Vec3b, MatIter};
+use opencv::core::{Mat, CV_8U, Vec3b};
 use opencv::imgproc::{resize, INTER_AREA};
-use opencv::highgui::{imshow, wait_key};
+use opencv::highgui::{wait_key};
 
 
 fn main() -> Result<(), io::Error> {
@@ -37,7 +37,7 @@ fn main() -> Result<(), io::Error> {
     let mut frame = Mat::default();
     let mut ss = Mat::default();
     unsafe {let _shrunken_ok = Mat::create_rows_cols(&mut ss, 40, 40, CV_8U);};
-
+    terminal.clear()?;
     //loop and poll for events
     loop {
 
