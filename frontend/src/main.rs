@@ -36,12 +36,12 @@ fn main() -> Result<(), io::Error> {
 
     let mut frame = Mat::default();
     let mut ss = Mat::default();
-    unsafe {let _shrunken_ok = Mat::create_rows_cols(&mut ss, 40, 40, CV_8U);};
+    unsafe {let _shrunken_ok = Mat::create_rows_cols(&mut ss, 20, 40, CV_8U);};
     terminal.clear()?;
     //loop and poll for events
     loop {
 
-        let mut vector_colours: [[Vec3b ;40]; 40] = [[Vec3b::default(); 40]; 40];
+        let mut vector_colours: [[Vec3b ;40]; 20] = [[Vec3b::default(); 40]; 20];
 
         if cam_ok == false {
             println!("failed opening the VideoCapture");
@@ -56,7 +56,7 @@ fn main() -> Result<(), io::Error> {
 
             let mut r = 0;
             let mut c = 0;
-            for _row in 0..40 {
+            for _row in 0..20 {
                 //println!("{:?}", ss.row(row));
 
                 for _col in 0..40 {
@@ -130,7 +130,7 @@ fn main() -> Result<(), io::Error> {
     Ok(())
 }
 
-fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 40]) {
+fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 20]) {
     let chunks = Layout::default()
     .direction(Direction::Horizontal)
     .margin(1)
@@ -148,7 +148,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     f.render_widget(block, chunks[0]);
     let mut cam_span = vec![];
 
-        for r in 0..40 {
+        for r in 0..20 {
 
                 for c in 0..40 {
 
