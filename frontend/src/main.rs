@@ -132,12 +132,12 @@ fn main() -> Result<(), io::Error> {
 
 fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 40]) {
     let chunks = Layout::default()
-    .direction(Direction::Vertical)
+    .direction(Direction::Horizontal)
     .margin(1)
     .constraints(
     [
-        Constraint::Percentage(10),
-                 Constraint::Percentage(60),
+        Constraint::Length(1),
+                 Constraint::Length(41),
                  Constraint::Percentage(30)
     ].as_ref()
     )
