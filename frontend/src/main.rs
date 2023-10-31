@@ -1,3 +1,5 @@
+use std::{io, time::Duration};
+//Tui imports
 use tui::{
     backend::{Backend, CrosstermBackend},
     layout::{Constraint, Alignment, Direction, Layout},
@@ -7,18 +9,20 @@ use tui::{
     terminal::Terminal,
     Frame,
 };
-use std::{io, time::Duration};
 use crossterm:: {
     event::{read, poll, DisableMouseCapture, EnableMouseCapture, Event},
     execute,
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
 };
-
+//opencv imports
 use opencv::prelude::*;
 use opencv::videoio;
 use opencv::core::{Mat, CV_8U, Vec3b};
 use opencv::imgproc::{resize, INTER_AREA};
 use opencv::highgui::{wait_key};
+//Rabbitmq imports
+
+
 
 
 fn main() -> Result<(), io::Error> {
