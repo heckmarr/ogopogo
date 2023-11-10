@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#prints ogopogo sighted!
+echo 'Ogopogo sighted!'
