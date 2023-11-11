@@ -43,6 +43,10 @@ fn main() -> Result<(), io::Error> {
     unsafe {let _shrunken_ok = Mat::create_rows_cols(&mut ss, 20, 40, CV_8U);};
     terminal.clear()?;
     //loop and poll for events
+    let mut vector_smash: [[[Vec3b ; 40]; 20]; 35] = [[[Vec3b::default(); 40]; 20]; 35];
+    let n = 0;
+    let mut data_string = "";
+    let mut data = json::JsonValue::new_object();
     loop {
 
         let mut vector_colours: [[Vec3b ;40]; 20] = [[Vec3b::default(); 40]; 20];
@@ -79,6 +83,30 @@ fn main() -> Result<(), io::Error> {
                 //break;
             }
             //break;
+            vector_smash[n] = vector_colours;
+            let n = n + 1;
+            if n == vector_smash.len() {
+                let num = 0;
+                for frame in vector_smash.iter() {
+                    let frame_name = format!("frame{}", num);
+                    //loop over the frames
+                    for row in frame.iter() {
+                        //loop over the rows
+                        for r in row.iter() {
+                            data[format!("{}B", frame_name)] = r[0].into();
+                            data[format!("{}G", frame_name)] = r[1].into();
+                            data[format!("{}R", frame_name)] = r[2].into();
+                        }
+                    }
+                    //increment the frame
+                    let num = num + 1;
+                }
+                //print out for debug purposes
+                let data_string = format!("{}", json::stringify(data.clone())).unwrap();
+                //keep the index from running on forever
+                let n = vector_smash.len() + 1;
+            }
+
         }
             //imshow("doot", &ss).unwrap();
 
@@ -94,8 +122,9 @@ fn main() -> Result<(), io::Error> {
                 terminal.hide_cursor()?;
                 //terminal.clear()?;
                 terminal.draw(|f| {
-                    ui(f, 0, 0, vector_colours);
+                    ui(f, 0, 0, vector_colours, data_string);
                 })?;
+//                println!("{}", data_string);
 
             if poll(Duration::from_millis(10))? {
                 //Poll for events and match them to a read case
@@ -106,7 +135,7 @@ fn main() -> Result<(), io::Error> {
                         let backend = CrosstermBackend::new(stdout);
                         let mut terminal = Terminal::new(backend)?;
                         terminal.draw(|f| {
-                            ui(f, event.column, event.row, vector_colours);
+                            ui(f, event.column, event.row, vector_colours, data_string);
                         })?;
 
                     },
@@ -134,7 +163,7 @@ fn main() -> Result<(), io::Error> {
     Ok(())
 }
 
-fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 20]) {
+fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 20], data_string: &str) {
     let chunks = Layout::default()
     .direction(Direction::Horizontal)
     .margin(1)
@@ -172,8 +201,9 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     let text = vec![
         Spans::from(vec![
             Span::raw("This is a "),
-            Span::styled("test", Style::default().add_modifier(Modifier::ITALIC)),
-            Span::raw("."),
+            Span::styled("test frame", Style::default().add_modifier(Modifier::ITALIC)),
+            Span::raw(data_string),
+                    Span::raw("."),
 
 
         ]),

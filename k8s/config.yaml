@@ -1,0 +1,303 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2023-11-04T19:13:05Z"
+    generateName: ogopogo-server-
+    labels:
+      app.kubernetes.io/component: rabbitmq
+      app.kubernetes.io/name: ogopogo
+      app.kubernetes.io/part-of: rabbitmq
+      apps.kubernetes.io/pod-index: "0"
+      controller-revision-hash: ogopogo-server-74f54d59dd
+      statefulset.kubernetes.io/pod-name: ogopogo-server-0
+    name: ogopogo-server-0
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: StatefulSet
+      name: ogopogo-server
+      uid: 6c823201-8b6d-4294-9d15-757181cc42a4
+    resourceVersion: "11224"
+    uid: 842e0fd9-7204-40a8-8579-708721495f08
+  spec:
+    automountServiceAccountToken: true
+    containers:
+    - env:
+      - name: MY_POD_NAME
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.name
+      - name: MY_POD_NAMESPACE
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.namespace
+      - name: K8S_SERVICE_NAME
+        value: ogopogo-nodes
+      - name: RABBITMQ_ENABLED_PLUGINS_FILE
+        value: /operator/enabled_plugins
+      - name: RABBITMQ_USE_LONGNAME
+        value: "true"
+      - name: RABBITMQ_NODENAME
+        value: rabbit@$(MY_POD_NAME).$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE)
+      - name: K8S_HOSTNAME_SUFFIX
+        value: .$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE)
+      image: rabbitmq:3.12.2-management
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+            - /bin/bash
+            - -c
+            - if [ ! -z "$(cat /etc/pod-info/skipPreStopChecks)" ]; then exit 0; fi;
+              rabbitmq-upgrade await_online_quorum_plus_one -t 604800; rabbitmq-upgrade
+              await_online_synchronized_mirror -t 604800; rabbitmq-upgrade drain -t
+              604800
+      name: rabbitmq
+      ports:
+      - containerPort: 4369
+        name: epmd
+        protocol: TCP
+      - containerPort: 5672
+        name: amqp
+        protocol: TCP
+      - containerPort: 15672
+        name: management
+        protocol: TCP
+      - containerPort: 15692
+        name: prometheus
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        initialDelaySeconds: 10
+        periodSeconds: 10
+        successThreshold: 1
+        tcpSocket:
+          port: amqp
+        timeoutSeconds: 5
+      resources:
+        limits:
+          cpu: "2"
+          memory: 2Gi
+        requests:
+          cpu: "1"
+          memory: 2Gi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/lib/rabbitmq/
+        name: rabbitmq-erlang-cookie
+      - mountPath: /var/lib/rabbitmq/mnesia/
+        name: persistence
+      - mountPath: /operator
+        name: rabbitmq-plugins
+      - mountPath: /etc/rabbitmq/conf.d/10-operatorDefaults.conf
+        name: rabbitmq-confd
+        subPath: operatorDefaults.conf
+      - mountPath: /etc/rabbitmq/conf.d/90-userDefinedConfiguration.conf
+        name: rabbitmq-confd
+        subPath: userDefinedConfiguration.conf
+      - mountPath: /etc/pod-info/
+        name: pod-info
+      - mountPath: /etc/rabbitmq/conf.d/11-default_user.conf
+        name: rabbitmq-confd
+        subPath: default_user.conf
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-9klfn
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    hostname: ogopogo-server-0
+    initContainers:
+    - command:
+      - sh
+      - -c
+      - cp /tmp/erlang-cookie-secret/.erlang.cookie /var/lib/rabbitmq/.erlang.cookie
+        && chmod 600 /var/lib/rabbitmq/.erlang.cookie ; cp /tmp/rabbitmq-plugins/enabled_plugins
+        /operator/enabled_plugins ; echo '[default]' > /var/lib/rabbitmq/.rabbitmqadmin.conf
+        && sed -e 's/default_user/username/' -e 's/default_pass/password/' /tmp/default_user.conf
+        >> /var/lib/rabbitmq/.rabbitmqadmin.conf && chmod 600 /var/lib/rabbitmq/.rabbitmqadmin.conf
+        ; sleep 30
+      image: rabbitmq:3.12.2-management
+      imagePullPolicy: IfNotPresent
+      name: setup-container
+      resources:
+        limits:
+          cpu: 100m
+          memory: 500Mi
+        requests:
+          cpu: 100m
+          memory: 500Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /tmp/rabbitmq-plugins/
+        name: plugins-conf
+      - mountPath: /var/lib/rabbitmq/
+        name: rabbitmq-erlang-cookie
+      - mountPath: /tmp/erlang-cookie-secret/
+        name: erlang-cookie-secret
+      - mountPath: /operator
+        name: rabbitmq-plugins
+      - mountPath: /var/lib/rabbitmq/mnesia/
+        name: persistence
+      - mountPath: /tmp/default_user.conf
+        name: rabbitmq-confd
+        subPath: default_user.conf
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-9klfn
+        readOnly: true
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 0
+      runAsUser: 999
+    serviceAccount: ogopogo-server
+    serviceAccountName: ogopogo-server
+    subdomain: ogopogo-nodes
+    terminationGracePeriodSeconds: 604800
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    topologySpreadConstraints:
+    - labelSelector:
+        matchLabels:
+          app.kubernetes.io/name: ogopogo
+      maxSkew: 1
+      topologyKey: topology.kubernetes.io/zone
+      whenUnsatisfiable: ScheduleAnyway
+    volumes:
+    - name: persistence
+      persistentVolumeClaim:
+        claimName: persistence-ogopogo-server-0
+    - configMap:
+        defaultMode: 420
+        name: ogopogo-plugins-conf
+      name: plugins-conf
+    - name: rabbitmq-confd
+      projected:
+        defaultMode: 420
+        sources:
+        - configMap:
+            items:
+            - key: operatorDefaults.conf
+              path: operatorDefaults.conf
+            - key: userDefinedConfiguration.conf
+              path: userDefinedConfiguration.conf
+            name: ogopogo-server-conf
+        - secret:
+            items:
+            - key: default_user.conf
+              path: default_user.conf
+            name: ogopogo-default-user
+    - emptyDir: {}
+      name: rabbitmq-erlang-cookie
+    - name: erlang-cookie-secret
+      secret:
+        defaultMode: 420
+        secretName: ogopogo-erlang-cookie
+    - emptyDir: {}
+      name: rabbitmq-plugins
+    - downwardAPI:
+        defaultMode: 420
+        items:
+        - fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.labels['skipPreStopChecks']
+          path: skipPreStopChecks
+      name: pod-info
+    - name: kube-api-access-9klfn
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: catsgomeow.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2023-11-04T19:13:38Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2023-11-07T03:34:52Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2023-11-07T03:34:52Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2023-11-04T19:13:06Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://ed22b2fa76d4b767a3bfb454a84b05b39ca19272881deba45b201500503a1960
+      image: rabbitmq:3.12.2-management
+      imageID: docker-pullable://rabbitmq@sha256:2ae0b1448de431124cd77c9477f079d4a89080affb02ff85b800477c551566eb
+      lastState:
+        terminated:
+          containerID: docker://90900cabc2005f364b147cf8d801fef36fe6d07eb91da102a57093575960230c
+          exitCode: 0
+          finishedAt: "2023-11-07T03:33:56Z"
+          reason: Completed
+          startedAt: "2023-11-04T19:13:38Z"
+      name: rabbitmq
+      ready: true
+      restartCount: 1
+      started: true
+      state:
+        running:
+          startedAt: "2023-11-07T03:34:38Z"
+    hostIP: 192.168.49.2
+    initContainerStatuses:
+    - containerID: docker://70ef872dc9c7112ad29ce8db45dd5c26b1d8b92b50717e1f65073a7d361e4ef7
+      image: rabbitmq:3.12.2-management
+      imageID: docker-pullable://rabbitmq@sha256:2ae0b1448de431124cd77c9477f079d4a89080affb02ff85b800477c551566eb
+      lastState: {}
+      name: setup-container
+      ready: true
+      restartCount: 1
+      started: false
+      state:
+        terminated:
+          containerID: docker://70ef872dc9c7112ad29ce8db45dd5c26b1d8b92b50717e1f65073a7d361e4ef7
+          exitCode: 0
+          finishedAt: "2023-11-07T03:34:37Z"
+          reason: Completed
+          startedAt: "2023-11-07T03:34:07Z"
+    phase: Running
+    podIP: 10.244.0.11
+    podIPs:
+    - ip: 10.244.0.11
+    qosClass: Burstable
+    startTime: "2023-11-04T19:13:06Z"
+kind: List
+metadata:
+  resourceVersion: ""

@@ -1,0 +1,654 @@
+* 
+* ==> Audit <==
+* |---------|--------------------------------------------------------------------------------------------|----------|--------|----------------|---------------------|---------------------|
+| Command |                                            Args                                            | Profile  |  User  |    Version     |     Start Time      |      End Time       |
+|---------|--------------------------------------------------------------------------------------------|----------|--------|----------------|---------------------|---------------------|
+| start   | --driver=podman                                                                            | minikube | hermes | v1.31.2        | 01 Nov 23 20:29 PDT |                     |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.31.2        | 01 Nov 23 20:32 PDT |                     |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+| delete  |                                                                                            | minikube | hermes | v1.31.2        | 01 Nov 23 20:35 PDT | 01 Nov 23 20:35 PDT |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.31.2        | 01 Nov 23 20:36 PDT |                     |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+|         | --kubernetes-version v1.15.12                                                              |          |        |                |                     |                     |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.31.2        | 01 Nov 23 20:36 PDT |                     |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+|         | --kubernetes-version v1.16.0                                                               |          |        |                |                     |                     |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.31.2        | 01 Nov 23 20:39 PDT |                     |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+|         | --kubernetes-version v1.16.0                                                               |          |        |                |                     |                     |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.31.2        | 01 Nov 23 20:41 PDT |                     |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+|         | --kubernetes-version v1.16.0                                                               |          |        |                |                     |                     |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.32.0-beta.0 | 01 Nov 23 20:46 PDT |                     |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.32.0-beta.0 | 01 Nov 23 20:49 PDT |                     |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.32.0-beta.0 | 01 Nov 23 20:52 PDT |                     |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.32.0-beta.0 | 01 Nov 23 20:54 PDT |                     |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 12:19 PDT |                     |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+| delete  |                                                                                            | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 12:19 PDT | 03 Nov 23 12:19 PDT |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 12:19 PDT |                     |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 12:26 PDT |                     |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+| delete  |                                                                                            | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 12:27 PDT | 03 Nov 23 12:27 PDT |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 12:27 PDT |                     |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+| delete  |                                                                                            | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 12:31 PDT | 03 Nov 23 12:31 PDT |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 12:31 PDT | 03 Nov 23 12:32 PDT |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+| stop    |                                                                                            | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 12:47 PDT | 03 Nov 23 12:47 PDT |
+| start   | --driver=podman                                                                            | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 12:49 PDT | 03 Nov 23 12:50 PDT |
+|         | --container-runtime=containerd                                                             |          |        |                |                     |                     |
+| kubectl | -- get pods -A                                                                             | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:10 PDT | 03 Nov 23 14:11 PDT |
+| kubectl | -- status                                                                                  | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:11 PDT |                     |
+| kubectl | -- krew                                                                                    | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:16 PDT |                     |
+| kubectl | -- krew get pods -A                                                                        | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:17 PDT |                     |
+| kubectl | -- exec -- sh                                                                              | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:17 PDT |                     |
+| kubectl | -- exec --it=default -- sh                                                                 | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:17 PDT |                     |
+| kubectl | -- exec -it=default -- sh                                                                  | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:18 PDT |                     |
+| kubectl | -- get pod                                                                                 | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:19 PDT | 03 Nov 23 14:19 PDT |
+|         | -o=custom-columns=NAME:.metadata.name,STATUS:.status.phase,NODE:.spec.nodeName             |          |        |                |                     |                     |
+|         | --all-namespaces                                                                           |          |        |                |                     |                     |
+| kubectl | -- exec -it=pods/default --                                                                | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:20 PDT |                     |
+|         | /bin/bash                                                                                  |          |        |                |                     |                     |
+| kubectl | -- exec -it pods/default --                                                                | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:20 PDT |                     |
+|         | /bin/bash                                                                                  |          |        |                |                     |                     |
+| kubectl | -- apply -f                                                                                | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:22 PDT |                     |
+| kubectl | -- apply -f                                                                                | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:22 PDT | 03 Nov 23 14:22 PDT |
+|         | https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml |          |        |                |                     |                     |
+| kubectl | -- get pod                                                                                 | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:23 PDT | 03 Nov 23 14:23 PDT |
+|         | -o=custom-columns=NAME:.metadata.name,STATUS:.status.phase,NODE:.spec.nodeName             |          |        |                |                     |                     |
+|         | --all-namespaces                                                                           |          |        |                |                     |                     |
+| kubectl | -- exec -it                                                                                | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:24 PDT |                     |
+|         | rabbitmq-cluster-operator-f97d948f7-r4n2j                                                  |          |        |                |                     |                     |
+| kubectl | -- exec -it                                                                                | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:24 PDT |                     |
+|         | rabbitmq-cluster-operator-f97d948f7-r4n2j                                                  |          |        |                |                     |                     |
+|         | /bin/bash                                                                                  |          |        |                |                     |                     |
+| kubectl | -- exec -it                                                                                | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:24 PDT |                     |
+|         | rabbitmq-cluster-operator --                                                               |          |        |                |                     |                     |
+|         | sh                                                                                         |          |        |                |                     |                     |
+| kubectl | -- get pods                                                                                | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:25 PDT | 03 Nov 23 14:25 PDT |
+| kubectl | -- get rabbitmq                                                                            | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:25 PDT |                     |
+| kubectl | -- get pods/rabbitmq                                                                       | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:25 PDT |                     |
+| kubectl | -- get pods/rabbitmq-server                                                                | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:25 PDT |                     |
+| kubectl | -- get                                                                                     | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:25 PDT |                     |
+|         | pods/rabbitmq-cluster-operator                                                             |          |        |                |                     |                     |
+| kubectl | -- get pods/rabbitmq-system                                                                | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:25 PDT |                     |
+| kubectl | -- get rabbitmq-system                                                                     | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:26 PDT |                     |
+| kubectl | -- get pod                                                                                 | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:26 PDT | 03 Nov 23 14:26 PDT |
+|         | -o=custom-columns=NAME:.metadata.name,STATUS:.status.phase,NODE:.spec.nodeName             |          |        |                |                     |                     |
+|         | --all-namespaces                                                                           |          |        |                |                     |                     |
+| kubectl | -- get pod rabbitmq-system                                                                 | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:27 PDT |                     |
+| kubectl | -- get pods rabbitmq-system                                                                | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:27 PDT |                     |
+| kubectl | -- get pods                                                                                | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:28 PDT | 03 Nov 23 14:28 PDT |
+| kubectl | -- get pods deployment.apps                                                                | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:29 PDT |                     |
+| kubectl | -- get pod deployment.apps                                                                 | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:29 PDT |                     |
+| kubectl | -- get pod                                                                                 | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:29 PDT |                     |
+|         | deployment.apps/rabbitmq-cluster-operator                                                  |          |        |                |                     |                     |
+| kubectl | -- get                                                                                     | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:30 PDT |                     |
+|         | deployment.apps/rabbitmq-cluster-operator                                                  |          |        |                |                     |                     |
+| kubectl | -- get pod                                                                                 | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:30 PDT |                     |
+|         | deployment.apps/rabbitmq-cluster-operator                                                  |          |        |                |                     |                     |
+| kubectl | -- get                                                                                     | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:30 PDT |                     |
+|         | pod/deployment.apps/rabbitmq-cluster-operator                                              |          |        |                |                     |                     |
+| kubectl | -- get                                                                                     | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:30 PDT |                     |
+|         | pod/rabbitmq-cluster-operator                                                              |          |        |                |                     |                     |
+| delete  |                                                                                            | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:31 PDT | 03 Nov 23 14:31 PDT |
+| start   |                                                                                            | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:31 PDT |                     |
+| start   | --container-runtime=containerd                                                             | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:32 PDT |                     |
+|         | --driver=podman                                                                            |          |        |                |                     |                     |
+| start   | --container-runtime=containerd                                                             | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:32 PDT |                     |
+|         | --driver=podman                                                                            |          |        |                |                     |                     |
+| start   | --container-runtime=containerd                                                             | minikube | hermes | v1.32.0-beta.0 | 03 Nov 23 14:35 PDT |                     |
+|         | --driver=podman                                                                            |          |        |                |                     |                     |
+|---------|--------------------------------------------------------------------------------------------|----------|--------|----------------|---------------------|---------------------|
+
+* 
+* ==> Last Start <==
+* Log file created at: 2023/11/03 14:35:03
+Running on machine: scooty-puff-sr
+Binary: Built with gc go1.21.3 for linux/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I1103 14:35:03.039854   14898 out.go:296] Setting OutFile to fd 1 ...
+I1103 14:35:03.039952   14898 out.go:348] isatty.IsTerminal(1) = true
+I1103 14:35:03.039955   14898 out.go:309] Setting ErrFile to fd 2...
+I1103 14:35:03.039959   14898 out.go:348] isatty.IsTerminal(2) = true
+I1103 14:35:03.040081   14898 root.go:338] Updating PATH: /home/hermes/.minikube/bin
+I1103 14:35:03.040441   14898 out.go:303] Setting JSON to false
+I1103 14:35:03.041253   14898 start.go:128] hostinfo: {"hostname":"scooty-puff-sr","uptime":6360,"bootTime":1699040944,"procs":232,"os":"linux","platform":"debian","platformFamily":"debian","platformVersion":"bookworm/sid","kernelVersion":"6.2.0-36-generic","kernelArch":"x86_64","virtualizationSystem":"kvm","virtualizationRole":"host","hostId":"5235d305-1746-4f5a-81ee-4ed2d942da41"}
+I1103 14:35:03.041289   14898 start.go:138] virtualization: kvm host
+I1103 14:35:03.044850   14898 out.go:177] 😄  minikube v1.32.0-beta.0 on Debian bookworm/sid
+I1103 14:35:03.047633   14898 out.go:177]     ▪ MINIKUBE_ROOTLESS=true
+I1103 14:35:03.047789   14898 notify.go:220] Checking for updates...
+I1103 14:35:03.050749   14898 config.go:182] Loaded profile config "minikube": Driver=podman, ContainerRuntime=containerd, KubernetesVersion=v1.28.3
+I1103 14:35:03.051799   14898 driver.go:378] Setting default libvirt URI to qemu:///system
+I1103 14:35:03.220166   14898 podman.go:123] podman version: 3.4.4
+I1103 14:35:03.223843   14898 out.go:177] ✨  Using the podman driver based on existing profile
+I1103 14:35:03.226174   14898 start.go:298] selected driver: podman
+I1103 14:35:03.226188   14898 start.go:902] validating driver "podman" against &{Name:minikube KeepContext:false EmbedCerts:false MinikubeISO: KicBaseImage:gcr.io/k8s-minikube/kicbase:v0.0.41@sha256:dbb2380b629f0776f6e6e49b5825fe42814849b2a6ad4707fbcf87004835f612 Memory:3900 CPUs:2 DiskSize:20000 VMDriver: Driver:podman HyperkitVpnKitSock: HyperkitVSockPorts:[] DockerEnv:[] ContainerVolumeMounts:[] InsecureRegistry:[] RegistryMirror:[] HostOnlyCIDR:192.168.59.1/24 HypervVirtualSwitch: HypervUseExternalSwitch:false HypervExternalAdapter: KVMNetwork:default KVMQemuURI:qemu:///system KVMGPU:false KVMHidden:false KVMNUMACount:1 APIServerPort:0 DockerOpt:[] DisableDriverMounts:false NFSShare:[] NFSSharesRoot:/nfsshares UUID: NoVTXCheck:false DNSProxy:false HostDNSResolver:true HostOnlyNicType:virtio NatNicType:virtio SSHIPAddress: SSHUser:root SSHKey: SSHPort:22 KubernetesConfig:{KubernetesVersion:v1.28.3 ClusterName:minikube Namespace:default APIServerName:minikubeCA APIServerNames:[] APIServerIPs:[] DNSDomain:cluster.local ContainerRuntime:containerd CRISocket: NetworkPlugin:cni FeatureGates:KubeletInUserNamespace=true ServiceCIDR:10.96.0.0/12 ImageRepository: LoadBalancerStartIP: LoadBalancerEndIP: CustomIngressCert: RegistryAliases: ExtraOptions:[] ShouldLoadCachedImages:true EnableDefaultCNI:false CNI: NodeIP: NodePort:8443 NodeName:} Nodes:[{Name: IP: Port:8443 KubernetesVersion:v1.28.3 ContainerRuntime:containerd ControlPlane:true Worker:true}] Addons:map[] CustomAddonImages:map[] CustomAddonRegistries:map[] VerifyComponents:map[apiserver:true system_pods:true] StartHostTimeout:6m0s ScheduledStop:<nil> ExposedPorts:[] ListenAddress: Network: Subnet: MultiNodeRequested:false ExtraDisks:0 CertExpiration:26280h0m0s Mount:false MountString:/home/hermes:/minikube-host Mount9PVersion:9p2000.L MountGID:docker MountIP: MountMSize:262144 MountOptions:[] MountPort:0 MountType:9p MountUID:docker BinaryMirror: DisableOptimizations:false DisableMetrics:false CustomQemuFirmwarePath: SocketVMnetClientPath: SocketVMnetPath: StaticIP: SSHAuthSock: SSHAgentPID:0 AutoPauseInterval:1m0s GPUs:}
+I1103 14:35:03.226420   14898 start.go:913] status for podman: {Installed:true Healthy:true Running:false NeedsImprovement:false Error:<nil> Reason: Fix: Doc: Version:}
+I1103 14:35:03.226558   14898 cli_runner.go:164] Run: podman system info --format json
+I1103 14:35:03.952518   14898 info.go:288] podman info: {Host:{BuildahVersion:1.23.1 CgroupVersion:v2 Conmon:{Package:conmon: /usr/bin/conmon Path:/usr/bin/conmon Version:conmon version 2.0.25, commit: unknown} Distribution:{Distribution:neon Version:22.04} MemFree:9460932608 MemTotal:16671068160 OCIRuntime:{Name:crun Package:crun: /usr/bin/crun Path:/usr/bin/crun Version:crun version 0.17
+commit: 0e9229ae34caaebcb86f1fde18de3acaf18c6d9a
+spec: 1.0.0
++SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +YAJL} SwapFree:18338164736 SwapTotal:18338164736 Arch:amd64 Cpus:4 Eventlogger:journald Hostname:scooty-puff-sr Kernel:6.2.0-36-generic Os:linux Security:{Rootless:true} Uptime:1h 45m 59.92s (Approximately 0.04 days)} Registries:{Search:[]} Store:{ConfigFile:/home/hermes/.config/containers/storage.conf ContainerStore:{Number:0} GraphDriverName:overlay GraphOptions:{} GraphRoot:/home/hermes/.local/share/containers/storage GraphStatus:{BackingFilesystem:extfs NativeOverlayDiff:true SupportsDType:true UsingMetacopy:false} ImageStore:{Number:2} RunRoot:/run/user/1000/containers VolumePath:/home/hermes/.local/share/containers/storage/volumes}}
+I1103 14:35:03.952952   14898 cni.go:84] Creating CNI manager for ""
+I1103 14:35:03.952958   14898 cni.go:143] "podman" driver + "containerd" runtime found, recommending kindnet
+I1103 14:35:03.952966   14898 start_flags.go:323] config:
+{Name:minikube KeepContext:false EmbedCerts:false MinikubeISO: KicBaseImage:gcr.io/k8s-minikube/kicbase:v0.0.41@sha256:dbb2380b629f0776f6e6e49b5825fe42814849b2a6ad4707fbcf87004835f612 Memory:3900 CPUs:2 DiskSize:20000 VMDriver: Driver:podman HyperkitVpnKitSock: HyperkitVSockPorts:[] DockerEnv:[] ContainerVolumeMounts:[] InsecureRegistry:[] RegistryMirror:[] HostOnlyCIDR:192.168.59.1/24 HypervVirtualSwitch: HypervUseExternalSwitch:false HypervExternalAdapter: KVMNetwork:default KVMQemuURI:qemu:///system KVMGPU:false KVMHidden:false KVMNUMACount:1 APIServerPort:0 DockerOpt:[] DisableDriverMounts:false NFSShare:[] NFSSharesRoot:/nfsshares UUID: NoVTXCheck:false DNSProxy:false HostDNSResolver:true HostOnlyNicType:virtio NatNicType:virtio SSHIPAddress: SSHUser:root SSHKey: SSHPort:22 KubernetesConfig:{KubernetesVersion:v1.28.3 ClusterName:minikube Namespace:default APIServerName:minikubeCA APIServerNames:[] APIServerIPs:[] DNSDomain:cluster.local ContainerRuntime:containerd CRISocket: NetworkPlugin:cni FeatureGates:KubeletInUserNamespace=true ServiceCIDR:10.96.0.0/12 ImageRepository: LoadBalancerStartIP: LoadBalancerEndIP: CustomIngressCert: RegistryAliases: ExtraOptions:[] ShouldLoadCachedImages:true EnableDefaultCNI:false CNI: NodeIP: NodePort:8443 NodeName:} Nodes:[{Name: IP: Port:8443 KubernetesVersion:v1.28.3 ContainerRuntime:containerd ControlPlane:true Worker:true}] Addons:map[] CustomAddonImages:map[] CustomAddonRegistries:map[] VerifyComponents:map[apiserver:true system_pods:true] StartHostTimeout:6m0s ScheduledStop:<nil> ExposedPorts:[] ListenAddress: Network: Subnet: MultiNodeRequested:false ExtraDisks:0 CertExpiration:26280h0m0s Mount:false MountString:/home/hermes:/minikube-host Mount9PVersion:9p2000.L MountGID:docker MountIP: MountMSize:262144 MountOptions:[] MountPort:0 MountType:9p MountUID:docker BinaryMirror: DisableOptimizations:false DisableMetrics:false CustomQemuFirmwarePath: SocketVMnetClientPath: SocketVMnetPath: StaticIP: SSHAuthSock: SSHAgentPID:0 AutoPauseInterval:1m0s GPUs:}
+I1103 14:35:03.955998   14898 out.go:177] 👍  Starting control plane node minikube in cluster minikube
+I1103 14:35:03.957890   14898 cache.go:121] Beginning downloading kic base image for podman with containerd
+I1103 14:35:03.960023   14898 out.go:177] 🚜  Pulling base image ...
+I1103 14:35:03.962431   14898 preload.go:132] Checking if preload exists for k8s version v1.28.3 and runtime containerd
+I1103 14:35:03.962513   14898 preload.go:148] Found local preload: /home/hermes/.minikube/cache/preloaded-tarball/preloaded-images-k8s-v18-v1.28.3-containerd-overlay2-amd64.tar.lz4
+I1103 14:35:03.962527   14898 cache.go:56] Caching tarball of preloaded images
+I1103 14:35:03.962614   14898 cache.go:149] Downloading gcr.io/k8s-minikube/kicbase:v0.0.41@sha256:dbb2380b629f0776f6e6e49b5825fe42814849b2a6ad4707fbcf87004835f612 to local cache
+I1103 14:35:03.962710   14898 preload.go:174] Found /home/hermes/.minikube/cache/preloaded-tarball/preloaded-images-k8s-v18-v1.28.3-containerd-overlay2-amd64.tar.lz4 in cache, skipping download
+I1103 14:35:03.962734   14898 cache.go:59] Finished verifying existence of preloaded tar for  v1.28.3 on containerd
+I1103 14:35:03.962842   14898 image.go:63] Checking for gcr.io/k8s-minikube/kicbase:v0.0.41@sha256:dbb2380b629f0776f6e6e49b5825fe42814849b2a6ad4707fbcf87004835f612 in local cache directory
+I1103 14:35:03.962873   14898 image.go:66] Found gcr.io/k8s-minikube/kicbase:v0.0.41@sha256:dbb2380b629f0776f6e6e49b5825fe42814849b2a6ad4707fbcf87004835f612 in local cache directory, skipping pull
+I1103 14:35:03.962883   14898 image.go:105] gcr.io/k8s-minikube/kicbase:v0.0.41@sha256:dbb2380b629f0776f6e6e49b5825fe42814849b2a6ad4707fbcf87004835f612 exists in cache, skipping pull
+I1103 14:35:03.962906   14898 cache.go:152] successfully saved gcr.io/k8s-minikube/kicbase:v0.0.41@sha256:dbb2380b629f0776f6e6e49b5825fe42814849b2a6ad4707fbcf87004835f612 as a tarball
+I1103 14:35:03.963001   14898 profile.go:148] Saving config to /home/hermes/.minikube/profiles/minikube/config.json ...
+E1103 14:35:03.963602   14898 cache.go:189] Error downloading kic artifacts:  not yet implemented, see issue #8426
+I1103 14:35:03.963646   14898 cache.go:194] Successfully downloaded all kic artifacts
+I1103 14:35:03.963686   14898 start.go:365] acquiring machines lock for minikube: {Name:mk91b02bd11008f4c7a08eec7ddf352ba4b344f4 Clock:{} Delay:500ms Timeout:10m0s Cancel:<nil>}
+I1103 14:35:03.963847   14898 start.go:369] acquired machines lock for "minikube" in 127.396µs
+I1103 14:35:03.963875   14898 start.go:96] Skipping create...Using existing machine configuration
+I1103 14:35:03.963884   14898 fix.go:54] fixHost starting: 
+I1103 14:35:03.964528   14898 cli_runner.go:164] Run: podman container inspect minikube --format={{.State.Status}}
+W1103 14:35:04.014744   14898 cli_runner.go:211] podman container inspect minikube --format={{.State.Status}} returned with exit code 125
+I1103 14:35:04.014782   14898 fix.go:102] recreateIfNeeded on minikube: state= err=unknown state "minikube": podman container inspect minikube --format={{.State.Status}}: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:04-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:04.014792   14898 fix.go:107] machineExists: true. err=unknown state "minikube": podman container inspect minikube --format={{.State.Status}}: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:04-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+W1103 14:35:04.014796   14898 fix.go:128] unexpected machine state, will restart: unknown state "minikube": podman container inspect minikube --format={{.State.Status}}: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:04-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:04.017706   14898 out.go:177] 🔄  Restarting existing podman container for "minikube" ...
+I1103 14:35:04.019613   14898 cli_runner.go:164] Run: podman start minikube
+W1103 14:35:04.057583   14898 cli_runner.go:211] podman start minikube returned with exit code 125
+I1103 14:35:04.057636   14898 cli_runner.go:164] Run: podman inspect minikube
+I1103 14:35:04.191262   14898 errors.go:84] Postmortem inspect ("podman inspect minikube"): -- stdout --
+[
+    {
+        "Name": "minikube",
+        "Driver": "local",
+        "Mountpoint": "/home/hermes/.local/share/containers/storage/volumes/minikube/_data",
+        "CreatedAt": "2023-11-03T14:32:01.95352884-07:00",
+        "Labels": {
+            "created_by.minikube.sigs.k8s.io": "true",
+            "name.minikube.sigs.k8s.io": "minikube"
+        },
+        "Scope": "local",
+        "Options": {}
+    }
+]
+
+-- /stdout --
+** stderr ** 
+time="2023-11-03T14:35:04-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+
+** /stderr **
+I1103 14:35:04.191419   14898 cli_runner.go:164] Run: podman logs --timestamps minikube
+W1103 14:35:04.288273   14898 cli_runner.go:211] podman logs --timestamps minikube returned with exit code 125
+W1103 14:35:04.288295   14898 errors.go:89] Failed to get postmortem logs. podman logs --timestamps minikube :podman logs --timestamps minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:04-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: no container with name or ID "minikube" found: no such container
+I1103 14:35:04.288335   14898 cli_runner.go:164] Run: podman system info --format json
+I1103 14:35:04.960184   14898 info.go:288] podman info: {Host:{BuildahVersion:1.23.1 CgroupVersion:v2 Conmon:{Package:conmon: /usr/bin/conmon Path:/usr/bin/conmon Version:conmon version 2.0.25, commit: unknown} Distribution:{Distribution:neon Version:22.04} MemFree:9454321664 MemTotal:16671068160 OCIRuntime:{Name:crun Package:crun: /usr/bin/crun Path:/usr/bin/crun Version:crun version 0.17
+commit: 0e9229ae34caaebcb86f1fde18de3acaf18c6d9a
+spec: 1.0.0
++SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +YAJL} SwapFree:18338164736 SwapTotal:18338164736 Arch:amd64 Cpus:4 Eventlogger:journald Hostname:scooty-puff-sr Kernel:6.2.0-36-generic Os:linux Security:{Rootless:true} Uptime:1h 46m 0.91s (Approximately 0.04 days)} Registries:{Search:[]} Store:{ConfigFile:/home/hermes/.config/containers/storage.conf ContainerStore:{Number:0} GraphDriverName:overlay GraphOptions:{} GraphRoot:/home/hermes/.local/share/containers/storage GraphStatus:{BackingFilesystem:extfs NativeOverlayDiff:true SupportsDType:true UsingMetacopy:false} ImageStore:{Number:2} RunRoot:/run/user/1000/containers VolumePath:/home/hermes/.local/share/containers/storage/volumes}}
+I1103 14:35:04.960213   14898 errors.go:106] postmortem podman info: {Host:{BuildahVersion:1.23.1 CgroupVersion:v2 Conmon:{Package:conmon: /usr/bin/conmon Path:/usr/bin/conmon Version:conmon version 2.0.25, commit: unknown} Distribution:{Distribution:neon Version:22.04} MemFree:9454321664 MemTotal:16671068160 OCIRuntime:{Name:crun Package:crun: /usr/bin/crun Path:/usr/bin/crun Version:crun version 0.17
+commit: 0e9229ae34caaebcb86f1fde18de3acaf18c6d9a
+spec: 1.0.0
++SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +YAJL} SwapFree:18338164736 SwapTotal:18338164736 Arch:amd64 Cpus:4 Eventlogger:journald Hostname:scooty-puff-sr Kernel:6.2.0-36-generic Os:linux Security:{Rootless:true} Uptime:1h 46m 0.91s (Approximately 0.04 days)} Registries:{Search:[]} Store:{ConfigFile:/home/hermes/.config/containers/storage.conf ContainerStore:{Number:0} GraphDriverName:overlay GraphOptions:{} GraphRoot:/home/hermes/.local/share/containers/storage GraphStatus:{BackingFilesystem:extfs NativeOverlayDiff:true SupportsDType:true UsingMetacopy:false} ImageStore:{Number:2} RunRoot:/run/user/1000/containers VolumePath:/home/hermes/.local/share/containers/storage/volumes}}
+I1103 14:35:04.960247   14898 network_create.go:281] running [podman network inspect minikube] to gather additional debugging logs...
+I1103 14:35:04.960256   14898 cli_runner.go:164] Run: podman network inspect minikube
+I1103 14:35:05.094435   14898 network_create.go:286] output of [podman network inspect minikube]: -- stdout --
+[
+    {
+        "args": {
+            "podman_labels": {
+                "created_by.minikube.sigs.k8s.io": "true",
+                "name.minikube.sigs.k8s.io": "minikube"
+            }
+        },
+        "cniVersion": "1.0.0",
+        "name": "minikube",
+        "plugins": [
+            {
+                "bridge": "cni-podman0",
+                "hairpinMode": true,
+                "ipMasq": true,
+                "ipam": {
+                    "ranges": [
+                        [
+                            {
+                                "gateway": "192.168.58.1",
+                                "subnet": "192.168.58.0/24"
+                            }
+                        ]
+                    ],
+                    "routes": [
+                        {
+                            "dst": "0.0.0.0/0"
+                        }
+                    ],
+                    "type": "host-local"
+                },
+                "isGateway": true,
+                "type": "bridge"
+            },
+            {
+                "capabilities": {
+                    "portMappings": true
+                },
+                "type": "portmap"
+            },
+            {
+                "backend": "",
+                "type": "firewall"
+            },
+            {
+                "type": "tuning"
+            },
+            {
+                "capabilities": {
+                    "aliases": true
+                },
+                "domainName": "dns.podman",
+                "type": "dnsname"
+            }
+        ]
+    }
+]
+
+-- /stdout --
+** stderr ** 
+time="2023-11-03T14:35:04-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+
+** /stderr **
+I1103 14:35:05.094578   14898 cli_runner.go:164] Run: podman system info --format json
+I1103 14:35:05.771674   14898 info.go:288] podman info: {Host:{BuildahVersion:1.23.1 CgroupVersion:v2 Conmon:{Package:conmon: /usr/bin/conmon Path:/usr/bin/conmon Version:conmon version 2.0.25, commit: unknown} Distribution:{Distribution:neon Version:22.04} MemFree:9447981056 MemTotal:16671068160 OCIRuntime:{Name:crun Package:crun: /usr/bin/crun Path:/usr/bin/crun Version:crun version 0.17
+commit: 0e9229ae34caaebcb86f1fde18de3acaf18c6d9a
+spec: 1.0.0
++SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +YAJL} SwapFree:18338164736 SwapTotal:18338164736 Arch:amd64 Cpus:4 Eventlogger:journald Hostname:scooty-puff-sr Kernel:6.2.0-36-generic Os:linux Security:{Rootless:true} Uptime:1h 46m 1.72s (Approximately 0.04 days)} Registries:{Search:[]} Store:{ConfigFile:/home/hermes/.config/containers/storage.conf ContainerStore:{Number:0} GraphDriverName:overlay GraphOptions:{} GraphRoot:/home/hermes/.local/share/containers/storage GraphStatus:{BackingFilesystem:extfs NativeOverlayDiff:true SupportsDType:true UsingMetacopy:false} ImageStore:{Number:2} RunRoot:/run/user/1000/containers VolumePath:/home/hermes/.local/share/containers/storage/volumes}}
+I1103 14:35:05.771757   14898 ssh_runner.go:195] Run: sh -c "df -h /var | awk 'NR==2{print $5}'"
+I1103 14:35:05.771781   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:05.906648   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:05.991716   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+I1103 14:35:05.991802   14898 retry.go:31] will retry after 144.626401ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:05-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:06.137513   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:06.328000   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:06.426964   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+I1103 14:35:06.427076   14898 retry.go:31] will retry after 533.232544ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:06-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:06.961052   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:07.096440   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:07.145084   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+I1103 14:35:07.145178   14898 retry.go:31] will retry after 466.450828ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:07-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:07.612184   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:07.751946   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:07.797309   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+W1103 14:35:07.797404   14898 start.go:275] error running df -h /var: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:07-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+
+W1103 14:35:07.797424   14898 start.go:242] error getting percentage of /var that is free: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:07-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:07.797464   14898 ssh_runner.go:195] Run: sh -c "df -BG /var | awk 'NR==2{print $4}'"
+I1103 14:35:07.797492   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:07.936949   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:08.017337   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+I1103 14:35:08.017419   14898 retry.go:31] will retry after 367.389146ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:08-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:08.385360   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:08.522883   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:08.564140   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+I1103 14:35:08.564229   14898 retry.go:31] will retry after 314.509999ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:08-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:08.879111   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:09.072867   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:09.179614   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+I1103 14:35:09.179750   14898 retry.go:31] will retry after 339.881431ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:09-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:09.520767   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:09.657902   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:09.704002   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+W1103 14:35:09.704105   14898 start.go:290] error running df -BG /var: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:09-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+
+W1103 14:35:09.704123   14898 start.go:247] error getting GiB of /var that is available: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:09-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:09.704131   14898 fix.go:56] fixHost completed within 5.740250955s
+I1103 14:35:09.704136   14898 start.go:83] releasing machines lock for "minikube", held for 5.740279689s
+W1103 14:35:09.704145   14898 start.go:691] error starting host: driver start: start: podman start minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:04-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: no container with name or ID "minikube" found: no such container
+W1103 14:35:09.704203   14898 out.go:239] 🤦  StartHost failed, but will try again: driver start: start: podman start minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:04-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: no container with name or ID "minikube" found: no such container
+
+I1103 14:35:09.704229   14898 start.go:706] Will try again in 5 seconds ...
+I1103 14:35:14.705269   14898 start.go:365] acquiring machines lock for minikube: {Name:mk91b02bd11008f4c7a08eec7ddf352ba4b344f4 Clock:{} Delay:500ms Timeout:10m0s Cancel:<nil>}
+I1103 14:35:14.705432   14898 start.go:369] acquired machines lock for "minikube" in 97.362µs
+I1103 14:35:14.705468   14898 start.go:96] Skipping create...Using existing machine configuration
+I1103 14:35:14.705478   14898 fix.go:54] fixHost starting: 
+I1103 14:35:14.706188   14898 cli_runner.go:164] Run: podman container inspect minikube --format={{.State.Status}}
+W1103 14:35:14.750973   14898 cli_runner.go:211] podman container inspect minikube --format={{.State.Status}} returned with exit code 125
+I1103 14:35:14.751003   14898 fix.go:102] recreateIfNeeded on minikube: state= err=unknown state "minikube": podman container inspect minikube --format={{.State.Status}}: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:14-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:14.751012   14898 fix.go:107] machineExists: true. err=unknown state "minikube": podman container inspect minikube --format={{.State.Status}}: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:14-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+W1103 14:35:14.751017   14898 fix.go:128] unexpected machine state, will restart: unknown state "minikube": podman container inspect minikube --format={{.State.Status}}: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:14-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:14.753054   14898 out.go:177] 🔄  Restarting existing podman container for "minikube" ...
+I1103 14:35:14.754904   14898 cli_runner.go:164] Run: podman start minikube
+W1103 14:35:14.794182   14898 cli_runner.go:211] podman start minikube returned with exit code 125
+I1103 14:35:14.794222   14898 cli_runner.go:164] Run: podman inspect minikube
+I1103 14:35:14.927718   14898 errors.go:84] Postmortem inspect ("podman inspect minikube"): -- stdout --
+[
+    {
+        "Name": "minikube",
+        "Driver": "local",
+        "Mountpoint": "/home/hermes/.local/share/containers/storage/volumes/minikube/_data",
+        "CreatedAt": "2023-11-03T14:32:01.95352884-07:00",
+        "Labels": {
+            "created_by.minikube.sigs.k8s.io": "true",
+            "name.minikube.sigs.k8s.io": "minikube"
+        },
+        "Scope": "local",
+        "Options": {}
+    }
+]
+
+-- /stdout --
+** stderr ** 
+time="2023-11-03T14:35:14-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+
+** /stderr **
+I1103 14:35:14.927839   14898 cli_runner.go:164] Run: podman logs --timestamps minikube
+W1103 14:35:15.056282   14898 cli_runner.go:211] podman logs --timestamps minikube returned with exit code 125
+W1103 14:35:15.056313   14898 errors.go:89] Failed to get postmortem logs. podman logs --timestamps minikube :podman logs --timestamps minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:15-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: no container with name or ID "minikube" found: no such container
+I1103 14:35:15.056410   14898 cli_runner.go:164] Run: podman system info --format json
+I1103 14:35:15.755500   14898 info.go:288] podman info: {Host:{BuildahVersion:1.23.1 CgroupVersion:v2 Conmon:{Package:conmon: /usr/bin/conmon Path:/usr/bin/conmon Version:conmon version 2.0.25, commit: unknown} Distribution:{Distribution:neon Version:22.04} MemFree:9465315328 MemTotal:16671068160 OCIRuntime:{Name:crun Package:crun: /usr/bin/crun Path:/usr/bin/crun Version:crun version 0.17
+commit: 0e9229ae34caaebcb86f1fde18de3acaf18c6d9a
+spec: 1.0.0
++SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +YAJL} SwapFree:18338164736 SwapTotal:18338164736 Arch:amd64 Cpus:4 Eventlogger:journald Hostname:scooty-puff-sr Kernel:6.2.0-36-generic Os:linux Security:{Rootless:true} Uptime:1h 46m 11.71s (Approximately 0.04 days)} Registries:{Search:[]} Store:{ConfigFile:/home/hermes/.config/containers/storage.conf ContainerStore:{Number:0} GraphDriverName:overlay GraphOptions:{} GraphRoot:/home/hermes/.local/share/containers/storage GraphStatus:{BackingFilesystem:extfs NativeOverlayDiff:true SupportsDType:true UsingMetacopy:false} ImageStore:{Number:2} RunRoot:/run/user/1000/containers VolumePath:/home/hermes/.local/share/containers/storage/volumes}}
+I1103 14:35:15.755525   14898 errors.go:106] postmortem podman info: {Host:{BuildahVersion:1.23.1 CgroupVersion:v2 Conmon:{Package:conmon: /usr/bin/conmon Path:/usr/bin/conmon Version:conmon version 2.0.25, commit: unknown} Distribution:{Distribution:neon Version:22.04} MemFree:9465315328 MemTotal:16671068160 OCIRuntime:{Name:crun Package:crun: /usr/bin/crun Path:/usr/bin/crun Version:crun version 0.17
+commit: 0e9229ae34caaebcb86f1fde18de3acaf18c6d9a
+spec: 1.0.0
++SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +YAJL} SwapFree:18338164736 SwapTotal:18338164736 Arch:amd64 Cpus:4 Eventlogger:journald Hostname:scooty-puff-sr Kernel:6.2.0-36-generic Os:linux Security:{Rootless:true} Uptime:1h 46m 11.71s (Approximately 0.04 days)} Registries:{Search:[]} Store:{ConfigFile:/home/hermes/.config/containers/storage.conf ContainerStore:{Number:0} GraphDriverName:overlay GraphOptions:{} GraphRoot:/home/hermes/.local/share/containers/storage GraphStatus:{BackingFilesystem:extfs NativeOverlayDiff:true SupportsDType:true UsingMetacopy:false} ImageStore:{Number:2} RunRoot:/run/user/1000/containers VolumePath:/home/hermes/.local/share/containers/storage/volumes}}
+I1103 14:35:15.755562   14898 network_create.go:281] running [podman network inspect minikube] to gather additional debugging logs...
+I1103 14:35:15.755571   14898 cli_runner.go:164] Run: podman network inspect minikube
+I1103 14:35:15.889360   14898 network_create.go:286] output of [podman network inspect minikube]: -- stdout --
+[
+    {
+        "args": {
+            "podman_labels": {
+                "created_by.minikube.sigs.k8s.io": "true",
+                "name.minikube.sigs.k8s.io": "minikube"
+            }
+        },
+        "cniVersion": "1.0.0",
+        "name": "minikube",
+        "plugins": [
+            {
+                "bridge": "cni-podman0",
+                "hairpinMode": true,
+                "ipMasq": true,
+                "ipam": {
+                    "ranges": [
+                        [
+                            {
+                                "gateway": "192.168.58.1",
+                                "subnet": "192.168.58.0/24"
+                            }
+                        ]
+                    ],
+                    "routes": [
+                        {
+                            "dst": "0.0.0.0/0"
+                        }
+                    ],
+                    "type": "host-local"
+                },
+                "isGateway": true,
+                "type": "bridge"
+            },
+            {
+                "capabilities": {
+                    "portMappings": true
+                },
+                "type": "portmap"
+            },
+            {
+                "backend": "",
+                "type": "firewall"
+            },
+            {
+                "type": "tuning"
+            },
+            {
+                "capabilities": {
+                    "aliases": true
+                },
+                "domainName": "dns.podman",
+                "type": "dnsname"
+            }
+        ]
+    }
+]
+
+-- /stdout --
+** stderr ** 
+time="2023-11-03T14:35:15-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+
+** /stderr **
+I1103 14:35:15.889525   14898 cli_runner.go:164] Run: podman system info --format json
+I1103 14:35:16.596518   14898 info.go:288] podman info: {Host:{BuildahVersion:1.23.1 CgroupVersion:v2 Conmon:{Package:conmon: /usr/bin/conmon Path:/usr/bin/conmon Version:conmon version 2.0.25, commit: unknown} Distribution:{Distribution:neon Version:22.04} MemFree:9469345792 MemTotal:16671068160 OCIRuntime:{Name:crun Package:crun: /usr/bin/crun Path:/usr/bin/crun Version:crun version 0.17
+commit: 0e9229ae34caaebcb86f1fde18de3acaf18c6d9a
+spec: 1.0.0
++SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +YAJL} SwapFree:18338164736 SwapTotal:18338164736 Arch:amd64 Cpus:4 Eventlogger:journald Hostname:scooty-puff-sr Kernel:6.2.0-36-generic Os:linux Security:{Rootless:true} Uptime:1h 46m 12.54s (Approximately 0.04 days)} Registries:{Search:[]} Store:{ConfigFile:/home/hermes/.config/containers/storage.conf ContainerStore:{Number:0} GraphDriverName:overlay GraphOptions:{} GraphRoot:/home/hermes/.local/share/containers/storage GraphStatus:{BackingFilesystem:extfs NativeOverlayDiff:true SupportsDType:true UsingMetacopy:false} ImageStore:{Number:2} RunRoot:/run/user/1000/containers VolumePath:/home/hermes/.local/share/containers/storage/volumes}}
+I1103 14:35:16.596600   14898 ssh_runner.go:195] Run: sh -c "df -h /var | awk 'NR==2{print $5}'"
+I1103 14:35:16.596624   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:16.729170   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:16.779336   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+I1103 14:35:16.779453   14898 retry.go:31] will retry after 128.481932ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:16-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:16.909246   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:17.102519   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:17.199173   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+I1103 14:35:17.199267   14898 retry.go:31] will retry after 195.650427ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:17-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:17.395993   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:17.575822   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:17.618192   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+I1103 14:35:17.618280   14898 retry.go:31] will retry after 803.793796ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:17-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:18.422795   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:18.558330   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:18.604224   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+W1103 14:35:18.604330   14898 start.go:275] error running df -h /var: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:18-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+
+W1103 14:35:18.604347   14898 start.go:242] error getting percentage of /var that is free: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:18-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:18.604388   14898 ssh_runner.go:195] Run: sh -c "df -BG /var | awk 'NR==2{print $4}'"
+I1103 14:35:18.604420   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:18.745866   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:18.826644   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+I1103 14:35:18.826759   14898 retry.go:31] will retry after 371.634872ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:18-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:19.198642   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:19.335210   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:19.374053   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+I1103 14:35:19.374159   14898 retry.go:31] will retry after 493.962525ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:19-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:19.869280   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:20.007775   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:20.047455   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+I1103 14:35:20.047541   14898 retry.go:31] will retry after 478.533876ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:20-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:20.526490   14898 cli_runner.go:164] Run: podman version --format {{.Version}}
+I1103 14:35:20.667788   14898 cli_runner.go:164] Run: podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W1103 14:35:20.710202   14898 cli_runner.go:211] podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 125
+W1103 14:35:20.710291   14898 start.go:290] error running df -BG /var: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:20-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+
+W1103 14:35:20.710306   14898 start.go:247] error getting GiB of /var that is available: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: get port 22 for "minikube": podman container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:20-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: error inspecting object: no such container minikube
+I1103 14:35:20.710313   14898 fix.go:56] fixHost completed within 6.004839115s
+I1103 14:35:20.710317   14898 start.go:83] releasing machines lock for "minikube", held for 6.00487457s
+W1103 14:35:20.710373   14898 out.go:239] 😿  Failed to start podman container. Running "minikube delete" may fix it: driver start: start: podman start minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:14-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: no container with name or ID "minikube" found: no such container
+
+I1103 14:35:20.715864   14898 out.go:177] 
+W1103 14:35:20.717855   14898 out.go:239] ❌  Exiting due to GUEST_PROVISION: error provisioning guest: Failed to start host: driver start: start: podman start minikube: exit status 125
+stdout:
+
+stderr:
+time="2023-11-03T14:35:14-07:00" level=warning msg="Error validating CNI config file /home/hermes/.config/cni/net.d/minikube.conflist: [plugin bridge does not support config version \"1.0.0\" plugin portmap does not support config version \"1.0.0\" plugin firewall does not support config version \"1.0.0\" plugin tuning does not support config version \"1.0.0\"]"
+Error: no container with name or ID "minikube" found: no such container
+
+W1103 14:35:20.717872   14898 out.go:239] 
+W1103 14:35:20.718713   14898 out.go:239] [31m╭───────────────────────────────────────────────────────────────────────────────────────────╮[0m
+[31m│[0m                                                                                           [31m│[0m
+[31m│[0m    😿  If the above advice does not help, please let us know:                             [31m│[0m
+[31m│[0m    👉  https://github.com/kubernetes/minikube/issues/new/choose                           [31m│[0m
+[31m│[0m                                                                                           [31m│[0m
+[31m│[0m    Please run `minikube logs --file=logs.txt` and attach logs.txt to the GitHub issue.    [31m│[0m
+[31m│[0m                                                                                           [31m│[0m
+[31m╰───────────────────────────────────────────────────────────────────────────────────────────╯[0m
+I1103 14:35:20.722964   14898 out.go:177] 
+
+* 
