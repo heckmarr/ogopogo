@@ -44,7 +44,8 @@ fn main() -> Result<(), io::Error> {
     terminal.clear()?;
     //loop and poll for events
     let mut vector_smash: [[[Vec3b ; 40]; 20]; 35] = [[[Vec3b::default(); 40]; 20]; 35];
-    let n = 0;
+    let mut n = 0;
+    let mut exit = false;
     let mut data_string = "";
     let mut data = json::JsonValue::new_object();
     loop {
@@ -84,28 +85,46 @@ fn main() -> Result<(), io::Error> {
             }
             //break;
             vector_smash[n] = vector_colours;
-            let n = n + 1;
-            if n == vector_smash.len() {
-                let num = 0;
+            n = n + 1;
+            if n == vector_smash.len() - 1 {
+                let mut num = 0;
+                let mut numrow = 0;
                 for frame in vector_smash.iter() {
-                    let frame_name = format!("frame{}", num);
+                    let mut frame_name = format!("frame{}", num);
                     //loop over the frames
                     for row in frame.iter() {
                         //loop over the rows
+                        numrow = numrow + 1;
+                        let frame_row_name = format!("{}row{}",frame_name, numrow);
                         for r in row.iter() {
-                            data[format!("{}B", frame_name)] = r[0].into();
-                            data[format!("{}G", frame_name)] = r[1].into();
-                            data[format!("{}R", frame_name)] = r[2].into();
+                            let mut indicie = format!("{}B", frame_row_name);
+                            data[indicie] = r[0].into();
+                            indicie = format!("{}G", frame_row_name);
+                            data[indicie] = r[1].into();
+                            indicie = format!("{}R", frame_row_name);
+                            data[indicie] = r[2].into();
                         }
                     }
+                    numrow = 0;
                     //increment the frame
-                    let num = num + 1;
+                    num = num + 1;
                 }
                 //print out for debug purposes
-                let data_string = format!("{}", json::stringify(data.clone())).unwrap();
+                println!("{}", data.dump());
+
+                let data_string = format!("{}", json::stringify(data.clone()));
                 //keep the index from running on forever
                 let n = vector_smash.len() + 1;
+
+                exit = false;
+                break;
+
             }
+
+        }
+        if exit {
+            println!("{}", data.dump());
+            break;
 
         }
             //imshow("doot", &ss).unwrap();
@@ -155,7 +174,7 @@ fn main() -> Result<(), io::Error> {
     execute!(
         terminal.backend_mut(),
         // TODO remove this comment
-        LeaveAlternateScreen,
+        //LeaveAlternateScreen,
         DisableMouseCapture
     )?;
     terminal.show_cursor()?;
