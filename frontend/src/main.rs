@@ -30,7 +30,10 @@ fn main() -> Result<(), io::Error> {
     //Initialize the terminal
     enable_raw_mode()?;
     let mut stdout = io::stdout();
-    execute!(stdout, EnterAlternateScreen, EnableMouseCapture)?;
+    execute!(stdout,
+             EnterAlternateScreen,
+             EnableMouseCapture
+             )?;
     let backend = CrosstermBackend::new(stdout);
     let mut terminal = Terminal::new(backend)?;
 
@@ -46,7 +49,7 @@ fn main() -> Result<(), io::Error> {
     let mut vector_smash: [[[Vec3b ; 40]; 20]; 35] = [[[Vec3b::default(); 40]; 20]; 35];
     let mut n = 0;
     let mut exit = false;
-    let mut data_string = "";
+    let mut data_string = "".into();
     let mut data = json::JsonValue::new_object();
     loop {
 
@@ -84,7 +87,9 @@ fn main() -> Result<(), io::Error> {
                 //break;
             }
             //break;
-            vector_smash[n] = vector_colours;
+            if n < vector_smash.len() {
+                vector_smash[n] = vector_colours;
+            }
             n = n + 1;
             if n == vector_smash.len() - 1 {
                 let mut num = 0;
@@ -113,20 +118,20 @@ fn main() -> Result<(), io::Error> {
                     num = num + 1;
                 }
                 //print out for debug purposes
-                println!("{}", data.dump());
+                //println!("{}", data.dump());
 
-                let data_string = format!("{}", json::stringify(data.clone()));
+                data_string = data.dump();
                 //keep the index from running on forever
                 let n = vector_smash.len() + 1;
 
                 exit = false;
-                break;
+                //break;
 
             }
 
         }
         if exit {
-            println!("{}", data.dump());
+            //println!("{}", data.dump());
             break;
 
         }
@@ -144,7 +149,7 @@ fn main() -> Result<(), io::Error> {
                 terminal.hide_cursor()?;
                 //terminal.clear()?;
                 terminal.draw(|f| {
-                    ui(f, 0, 0, vector_colours, data_string);
+                    ui(f, 0, 0, vector_colours, &data_string);
                 })?;
 //                println!("{}", data_string);
 
@@ -157,7 +162,7 @@ fn main() -> Result<(), io::Error> {
                         let backend = CrosstermBackend::new(stdout);
                         let mut terminal = Terminal::new(backend)?;
                         terminal.draw(|f| {
-                            ui(f, event.column, event.row, vector_colours, data_string);
+                            ui(f, event.column, event.row, vector_colours, &data_string);
                         })?;
 
                     },
