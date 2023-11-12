@@ -43,6 +43,11 @@ fn main() -> Result<(), io::Error> {
     unsafe {let _shrunken_ok = Mat::create_rows_cols(&mut ss, 20, 40, CV_8U);};
     terminal.clear()?;
     //loop and poll for events
+    let mut vector_smash: [[[Vec3b ; 40]; 20]; 35] = [[[Vec3b::default(); 40]; 20]; 35];
+    let mut n = 0;
+    let mut exit = false;
+    let mut data_string = "";
+    let mut data = json::JsonValue::new_object();
     loop {
 
         let mut vector_colours: [[Vec3b ;40]; 20] = [[Vec3b::default(); 40]; 20];
@@ -79,6 +84,48 @@ fn main() -> Result<(), io::Error> {
                 //break;
             }
             //break;
+            vector_smash[n] = vector_colours;
+            n = n + 1;
+            if n == vector_smash.len() - 1 {
+                let mut num = 0;
+                let mut numrow = 0;
+                for frame in vector_smash.iter() {
+                    let mut frame_name = format!("frame{}", num);
+                    //loop over the frames
+                    for row in frame.iter() {
+                        //loop over the rows
+                        numrow = numrow + 1;
+                        let frame_row_name = format!("{}row{}",frame_name, numrow);
+                        for r in row.iter() {
+                            let mut indicie = format!("{}B", frame_row_name);
+                            data[indicie] = r[0].into();
+                            indicie = format!("{}G", frame_row_name);
+                            data[indicie] = r[1].into();
+                            indicie = format!("{}R", frame_row_name);
+                            data[indicie] = r[2].into();
+                        }
+                    }
+                    numrow = 0;
+                    //increment the frame
+                    num = num + 1;
+                }
+                //print out for debug purposes
+                println!("{}", data.dump());
+
+                let data_string = format!("{}", json::stringify(data.clone()));
+                //keep the index from running on forever
+                let n = vector_smash.len() + 1;
+
+                exit = false;
+                break;
+
+            }
+
+        }
+        if exit {
+            println!("{}", data.dump());
+            break;
+
         }
             //imshow("doot", &ss).unwrap();
 
@@ -94,8 +141,9 @@ fn main() -> Result<(), io::Error> {
                 terminal.hide_cursor()?;
                 //terminal.clear()?;
                 terminal.draw(|f| {
-                    ui(f, 0, 0, vector_colours);
+                    ui(f, 0, 0, vector_colours, data_string);
                 })?;
+//                println!("{}", data_string);
 
             if poll(Duration::from_millis(10))? {
                 //Poll for events and match them to a read case
@@ -106,7 +154,7 @@ fn main() -> Result<(), io::Error> {
                         let backend = CrosstermBackend::new(stdout);
                         let mut terminal = Terminal::new(backend)?;
                         terminal.draw(|f| {
-                            ui(f, event.column, event.row, vector_colours);
+                            ui(f, event.column, event.row, vector_colours, data_string);
                         })?;
 
                     },
@@ -126,7 +174,7 @@ fn main() -> Result<(), io::Error> {
     execute!(
         terminal.backend_mut(),
         // TODO remove this comment
-        LeaveAlternateScreen,
+        //LeaveAlternateScreen,
         DisableMouseCapture
     )?;
     terminal.show_cursor()?;
@@ -134,7 +182,7 @@ fn main() -> Result<(), io::Error> {
     Ok(())
 }
 
-fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 20]) {
+fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 20], data_string: &str) {
     let chunks = Layout::default()
     .direction(Direction::Horizontal)
     .margin(1)
@@ -172,8 +220,9 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     let text = vec![
         Spans::from(vec![
             Span::raw("This is a "),
-            Span::styled("test", Style::default().add_modifier(Modifier::ITALIC)),
-            Span::raw("."),
+            Span::styled("test frame", Style::default().add_modifier(Modifier::ITALIC)),
+            Span::raw(data_string),
+                    Span::raw("."),
 
 
         ]),
