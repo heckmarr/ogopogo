@@ -96,14 +96,17 @@ fn main() -> Result<(), io::Error> {
                         //loop over the rows
                         numrow = numrow + 1;
                         let frame_row_name = format!("{}row{}",frame_name, numrow);
+                        let mut col = 0;
                         for r in row.iter() {
-                            let mut indicie = format!("{}B", frame_row_name);
+                            col += 1;
+                            let mut indicie = format!("{}col{}B", frame_row_name, col);
                             data[indicie] = r[0].into();
-                            indicie = format!("{}G", frame_row_name);
+                            indicie = format!("{}col{}G", frame_row_name, col);
                             data[indicie] = r[1].into();
-                            indicie = format!("{}R", frame_row_name);
+                            indicie = format!("{}col{}R", frame_row_name, col);
                             data[indicie] = r[2].into();
                         }
+
                     }
                     numrow = 0;
                     //increment the frame
