@@ -95,7 +95,7 @@ fn main() -> Result<(), io::Error> {
                 let mut num = 0;
                 let mut numrow = 0;
                 for frame in vector_smash.iter() {
-                    let mut frame_name = format!("frame{}", num);
+                    let frame_name = format!("frame{}", num);
                     //loop over the frames
                     for row in frame.iter() {
                         //loop over the rows
@@ -122,7 +122,7 @@ fn main() -> Result<(), io::Error> {
 
                 data_string = data.dump();
                 //keep the index from running on forever
-                let n = vector_smash.len() + 1;
+                n = vector_smash.len() + 1;
 
                 exit = false;
                 //break;
