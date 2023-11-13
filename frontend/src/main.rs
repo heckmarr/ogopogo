@@ -198,6 +198,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     [
         Constraint::Length(1),
                  Constraint::Length(41),
+                 Constraint::Length(40),
                  Constraint::Percentage(30)
     ].as_ref()
     )
@@ -220,26 +221,32 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
 
     let block = Paragraph::new(Spans::from(cam_span))
     .block(Block::default()
-    .title("Block 2")
+    .title("LIVE")
     .borders(Borders::ALL)).wrap(Wrap {trim: false});
     f.render_widget(block, chunks[1]);
 
     let span_styled = format!("And only a test, cursor is at {}cx{}r Any key to end", c, r);
-    let text = vec![
+    let text_info = vec![
         Spans::from(vec![
             Span::raw("This is a "),
             Span::styled("test frame", Style::default().add_modifier(Modifier::ITALIC)),
-            Span::raw(data_string),
                     Span::raw("."),
 
 
         ]),
         Spans::from(Span::styled(span_styled, Style::default().fg(Color::Red))),
     ];
-    let final_block = Paragraph::new(text)
-        .block(Block::default().title("Paragraph").borders(Borders::ALL))
+    let text_block = Paragraph::new(text_info)
+        .block(Block::default().title("Info").borders(Borders::ALL))
         .alignment(Alignment::Center)
         .wrap(Wrap {trim: true});
-    f.render_widget(final_block, chunks[2]);
+    f.render_widget(text_block, chunks[2]);
+    let recording_block = Paragraph::new(Span::raw(data_string))
+        .block(Block::default().title("Recorded").borders(Borders::ALL))
+        .alignment(Alignment::Center)
+        .wrap(Wrap {trim: true});
+    f.render_widget(recording_block, chunks[3]);
+
+
 
 }
