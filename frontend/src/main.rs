@@ -233,7 +233,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     let text_info = vec![
         Spans::from(vec![
             Span::raw("This is a "),
-            Span::styled("test frame", Style::default().add_modifier(Modifier::ITALIC)),
+            Span::styled("test frame, of half of my head most likely, standing at my desk", Style::default().add_modifier(Modifier::ITALIC)),
                     Span::raw("."),
 
 
