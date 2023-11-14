@@ -212,7 +212,11 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
         for r in 0..20 {
 
                 for c in 0..40 {
+                    //looks like this will work for reproducing the image
 
+                    //I just need to get the timing so it will trigger at 33 ms at least.
+
+                    //The file will need to be loaded as well, which adds to the overall timing
                     cam_span.push(Span::styled(" ", Style::default().bg(Color::Rgb(vector_colours[r][c][2], vector_colours[r][c][1], vector_colours[r][c][0]))));
                 }
                 cam_span.push(Span::raw("\n"));
