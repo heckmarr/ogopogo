@@ -192,13 +192,6 @@ fn main() -> Result<(), io::Error> {
 
 fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 20], data_string: &str, delta_time: Instant) {
 
-    //read the number of stored images
-    let skitter_dir = fs::read_dir("./skitters").unwrap();
-    for skitters in skitter_dir {
-        println!("skitter: {:?}", skitters.unwrap().path().display());
-    }
-
-
 
 
 
@@ -261,14 +254,31 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     f.render_widget(text_block, chunks[2]);
 
 
+    //read the number of stored images
+    let skitter_dir = fs::read_dir("./skitters").unwrap();
+    for skitters in skitter_dir {
+        //println!("skitter: {:?}", skitters.unwrap().path().display());
 
-    let elapsed_time = delta_time.elapsed();
-    let timing = format!("{} milliseconds have elapsed", elapsed_time.as_millis());
-    let recording_block = Paragraph::new(Span::raw(timing))
-        .block(Block::default().title("Recorded").borders(Borders::ALL))
-        .alignment(Alignment::Center)
-        .wrap(Wrap {trim: true});
-    f.render_widget(recording_block, chunks[3]);
+        let json_string = fs::read_to_string(skitters.as_ref().expect("No file!").path());
+        let json_in = json::parse(&json_string.expect("No file!"));
+
+        for frame in 0..34 {
+            for row in 0..20 {
+                for col in 0..40 {
+
+                }
+            }
+        }
+
+
+        let elapsed_time = delta_time.elapsed();
+        let timing = format!(":{} milliseconds have elapsed", elapsed_time.as_millis());
+        let recording_block = Paragraph::new(Span::raw(timing))
+            .block(Block::default().title("Recorded").borders(Borders::ALL))
+            .alignment(Alignment::Center)
+            .wrap(Wrap {trim: true});
+        f.render_widget(recording_block, chunks[3]);
+    }
 
 
 
