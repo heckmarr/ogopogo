@@ -1,4 +1,4 @@
-use std::{io, time::Duration};
+use std::{io, time::Duration, time::Instant};
 //Tui imports
 use tui::{
     backend::{Backend, CrosstermBackend},
@@ -52,7 +52,7 @@ fn main() -> Result<(), io::Error> {
     let mut data_string = "".into();
     let mut data = json::JsonValue::new_object();
     loop {
-
+        let now = Instant::now();
         let mut vector_colours: [[Vec3b ;40]; 20] = [[Vec3b::default(); 40]; 20];
 
         if cam_ok == false {
@@ -149,7 +149,7 @@ fn main() -> Result<(), io::Error> {
                 terminal.hide_cursor()?;
                 //terminal.clear()?;
                 terminal.draw(|f| {
-                    ui(f, 0, 0, vector_colours, &data_string);
+                    ui(f, 0, 0, vector_colours, &data_string, now);
                 })?;
 //                println!("{}", data_string);
 
@@ -162,7 +162,7 @@ fn main() -> Result<(), io::Error> {
                         let backend = CrosstermBackend::new(stdout);
                         let mut terminal = Terminal::new(backend)?;
                         terminal.draw(|f| {
-                            ui(f, event.column, event.row, vector_colours, &data_string);
+                            ui(f, event.column, event.row, vector_colours, &data_string, now);
                         })?;
 
                     },
@@ -190,7 +190,7 @@ fn main() -> Result<(), io::Error> {
     Ok(())
 }
 
-fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 20], data_string: &str) {
+fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 20], data_string: &str, delta_time: Instant) {
     let chunks = Layout::default()
     .direction(Direction::Horizontal)
     .margin(1)
@@ -230,6 +230,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     f.render_widget(block, chunks[1]);
 
     let span_styled = format!("And only a test, cursor is at {}cx{}r Any key to end", c, r);
+
     let text_info = vec![
         Spans::from(vec![
             Span::raw("This is a "),
@@ -240,12 +241,19 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
         ]),
         Spans::from(Span::styled(span_styled, Style::default().fg(Color::Red))),
     ];
+
+
     let text_block = Paragraph::new(text_info)
         .block(Block::default().title("Info").borders(Borders::ALL))
         .alignment(Alignment::Center)
         .wrap(Wrap {trim: true});
     f.render_widget(text_block, chunks[2]);
-    let recording_block = Paragraph::new(Span::raw(data_string))
+
+
+
+    let elapsed_time = delta_time.elapsed();
+    let timing = format!("{} milliseconds have elapsed", elapsed_time.as_millis());
+    let recording_block = Paragraph::new(Span::raw(timing))
         .block(Block::default().title("Recorded").borders(Borders::ALL))
         .alignment(Alignment::Center)
         .wrap(Wrap {trim: true});
