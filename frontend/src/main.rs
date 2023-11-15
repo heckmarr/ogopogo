@@ -142,11 +142,7 @@ fn main() -> Result<(), io::Error> {
         }
 
 
-        //read the number of stored images
-        let skitter_dir = fs::read_dir("./skitters").unwrap();
-        for skitters in skitter_dir {
-            println!("skitter: {:?}", skitters.unwrap().file_name());
-        }
+
 
 
             //Draw the terminal
@@ -195,6 +191,17 @@ fn main() -> Result<(), io::Error> {
 }
 
 fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 20], data_string: &str, delta_time: Instant) {
+
+    //read the number of stored images
+    let skitter_dir = fs::read_dir("./skitters").unwrap();
+    for skitters in skitter_dir {
+        println!("skitter: {:?}", skitters.unwrap().path().display());
+    }
+
+
+
+
+
     let chunks = Layout::default()
     .direction(Direction::Horizontal)
     .margin(1)
