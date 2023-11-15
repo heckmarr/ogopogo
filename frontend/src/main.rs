@@ -1,4 +1,4 @@
-use std::{io, time::Duration, time::Instant};
+use std::{io, fs, time::Duration, time::Instant};
 //Tui imports
 use tui::{
     backend::{Backend, CrosstermBackend},
@@ -142,7 +142,11 @@ fn main() -> Result<(), io::Error> {
         }
 
 
-
+        //read the number of stored images
+        let skitter_dir = fs::read_dir("./skitters").unwrap();
+        for skitters in skitter_dir {
+            println!("skitter: {:?}", skitters.unwrap().file_name());
+        }
 
 
             //Draw the terminal
