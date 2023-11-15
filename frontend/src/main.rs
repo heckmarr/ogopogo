@@ -259,15 +259,26 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     for skitters in skitter_dir {
         //println!("skitter: {:?}", skitters.unwrap().path().display());
 
-        let json_string = fs::read_to_string(skitters.as_ref().expect("No file!").path());
-        let json_in = json::parse(&json_string.expect("No file!"));
-
+        let json_string = fs::read_to_string(skitters.as_ref().expect("No file!").path()).unwrap();
+        let json_in = json::parse(&json_string).unwrap();
+        let mut skitter_out = vec![];
+        let mut skitter_frames = vec![];
         for frame in 0..34 {
+            let frame_name = format!("{}frame", frame);
             for row in 0..20 {
+                let frame_row_name = format!("{}row{}", frame_name, row);
                 for col in 0..40 {
-
+                    let frame_row_col_name_b = format!("{}col{}B", frame_row_name, col);
+                    let frame_row_col_name_g = format!("{}col{}G", frame_row_name, col);
+                    let frame_row_col_name_r = format!("{}col{}R", frame_row_name, col);
+                    let b_u8: u8 = json_in[frame_row_col_name_b].as_u8().unwrap();
+                    let g_u8: u8 = json_in[frame_row_col_name_g].as_u8().unwrap();
+                    let r_u8: u8 = json_in[frame_row_col_name_r].as_u8().unwrap();
+                    skitter_out.push(Span::styled( " ", Style::default().bg(Color::Rgb(r_u8, g_u8, b_u8))));
                 }
             }
+            skitter_frames.push(skitter_out.clone());
+            skitter_out = vec![];
         }
 
 
