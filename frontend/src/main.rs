@@ -328,6 +328,25 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
 
         //}
 
+        let mut count = 0;
+        if count_frame != 0 {
+
+            for n in 0..num_skitter {
+                if count == count_frame {
+                    let fr = Spans::from(skitter_frames[n]);
+
+                    let recording_block = Paragraph::new(fr)
+                        .block(Block::default().title("Recorded").borders(Borders::ALL))
+                        .alignment(Alignment::Center)
+                        .wrap(Wrap {trim: true});
+                    f.render_widget(recording_block, chunks[4]);
+
+                }
+                count += 1;
+            };
+
+        }
+
 
         let elapsed_time = delta_time.elapsed();
         let timing = format!(":{} milliseconds have elapsed", elapsed_time.as_millis());
