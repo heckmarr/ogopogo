@@ -193,7 +193,7 @@ fn main() -> Result<(), io::Error> {
 fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 20], data_string: &str, delta_time: Instant) {
     let path = path::Path::new("./skitters/skitter001");
 
-    fs::write(path, data_string);
+    fs::write(path, data_string).expect("file exists!");
 
     let chunks = Layout::default()
     .direction(Direction::Horizontal)
