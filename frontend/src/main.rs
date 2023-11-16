@@ -24,7 +24,6 @@ use opencv::highgui::{wait_key};
 
 
 
-
 fn main() -> Result<(), io::Error> {
 
     //Initialize the terminal
@@ -48,7 +47,8 @@ fn main() -> Result<(), io::Error> {
     //loop and poll for events
     let mut vector_smash: [[[Vec3b ; 40]; 20]; 35] = [[[Vec3b::default(); 40]; 20]; 35];
     let mut n = 0;
-    let mut exit = false;
+    let mut have_skitter = false;
+    let mut count_frame = 0;
     let mut data_string = "".into();
     let mut data = json::JsonValue::new_object();
     loop {
@@ -138,15 +138,19 @@ fn main() -> Result<(), io::Error> {
                 //keep the index from running on forever
                 n = vector_smash.len() + 1;
 
-                exit = false;
+                have_skitter = true;
                 //break;
 
             }
 
         }
-        if exit {
+        if have_skitter {
+            count_frame += 1;
             //println!("{}", data.dump());
-            break;
+            //break;
+            if count_frame >= 35 {
+                count_frame = 0;
+            }
 
         }
             //imshow("doot", &ss).unwrap();
@@ -163,7 +167,7 @@ fn main() -> Result<(), io::Error> {
                 terminal.hide_cursor()?;
                 //terminal.clear()?;
                 terminal.draw(|f| {
-                    ui(f, 0, 0, vector_colours, now);
+                    ui(f, 0, 0, vector_colours, now, count_frame);
                 })?;
 //                println!("{}", data_string);
 
@@ -176,7 +180,7 @@ fn main() -> Result<(), io::Error> {
                         let backend = CrosstermBackend::new(stdout);
                         let mut terminal = Terminal::new(backend)?;
                         terminal.draw(|f| {
-                            ui(f, event.column, event.row, vector_colours, now);
+                            ui(f, event.column, event.row, vector_colours, now, count_frame);
                         })?;
 
                     },
@@ -204,7 +208,7 @@ fn main() -> Result<(), io::Error> {
     Ok(())
 }
 
-fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 20], delta_time: Instant) {
+fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 20], delta_time: Instant, count_frame: usize) {
 
     let chunks = Layout::default()
     .direction(Direction::Horizontal)
@@ -214,7 +218,8 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
         Constraint::Length(1),
                  Constraint::Length(41),
                  Constraint::Length(40),
-                 Constraint::Percentage(30)
+                 Constraint::Length(40),
+                 Constraint::Length(40),
     ].as_ref()
     )
     .split(f.size());
@@ -274,6 +279,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     }
     let skitter_dir = fs::read_dir("./skitters").unwrap();
 
+    let mut skitter_frames = vec![];
     for skitters in skitter_dir {
         //println!("skitter: {:?}", skitters.unwrap().path().display());
         if num_skitter <= 0 {
@@ -282,7 +288,8 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
         let json_string = fs::read_to_string(skitters.as_ref().expect("No file!").path()).unwrap();
         let json_in = json::parse(&json_string).unwrap();
         let mut skitter_out = vec![];
-        let mut skitter_frames = vec![];
+
+
         for frame in 0..34 {
             let frame_name = format!("frame{}", frame);
             for row in 0..20 {
@@ -301,11 +308,30 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
             skitter_out = vec![];
         }
 
+        let mut count = 0;
+        if count_frame != 0 {
+
+            for n in 0..num_skitter {
+                if count == count_frame {
+                    let fr = Spans::from(skitter_frames[n]);
+
+                    let recording_block = Paragraph::new(fr)
+                        .block(Block::default().title("Recorded").borders(Borders::ALL))
+                        .alignment(Alignment::Center)
+                        .wrap(Wrap {trim: true});
+                    f.render_widget(recording_block, chunks[4]);
+
+                }
+                count += 1;
+            };
+
+        }
+
 
         let elapsed_time = delta_time.elapsed();
         let timing = format!(":{} milliseconds have elapsed", elapsed_time.as_millis());
         let recording_block = Paragraph::new(Span::raw(timing))
-            .block(Block::default().title("Recorded").borders(Borders::ALL))
+            .block(Block::default().title("Timing").borders(Borders::ALL))
             .alignment(Alignment::Center)
             .wrap(Wrap {trim: true});
         f.render_widget(recording_block, chunks[3]);
