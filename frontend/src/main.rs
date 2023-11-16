@@ -99,18 +99,21 @@ fn main() -> Result<(), io::Error> {
                     //loop over the frames
                     for row in frame.iter() {
                         //loop over the rows
-                        numrow = numrow + 1;
+
                         let frame_row_name = format!("{}row{}",frame_name, numrow);
                         let mut col = 0;
                         for r in row.iter() {
-                            col += 1;
                             let mut indicie = format!("{}col{}B", frame_row_name, col);
                             data[indicie] = r[0].into();
                             indicie = format!("{}col{}G", frame_row_name, col);
                             data[indicie] = r[1].into();
                             indicie = format!("{}col{}R", frame_row_name, col);
                             data[indicie] = r[2].into();
+                            col += 1;
+
+
                         }
+                        numrow = numrow + 1;
 
                     }
                     numrow = 0;
@@ -121,6 +124,17 @@ fn main() -> Result<(), io::Error> {
                 //println!("{}", data.dump());
 
                 data_string = data.dump();
+                //Now that we have the file, write it out
+                let skitter_dir = fs::read_dir("./skitters").unwrap();
+                let mut skitter_count = 0;
+                for skit in skitter_dir {
+                    skitter_count += 1;
+                }
+                let p_string = format!("./skitters/skitter{:03}", skitter_count);
+                let path = path::Path::new(&p_string);
+
+                fs::write(path, data_string).expect("file exists!");
+
                 //keep the index from running on forever
                 n = vector_smash.len() + 1;
 
@@ -149,7 +163,7 @@ fn main() -> Result<(), io::Error> {
                 terminal.hide_cursor()?;
                 //terminal.clear()?;
                 terminal.draw(|f| {
-                    ui(f, 0, 0, vector_colours, &data_string, now);
+                    ui(f, 0, 0, vector_colours, now);
                 })?;
 //                println!("{}", data_string);
 
@@ -162,7 +176,7 @@ fn main() -> Result<(), io::Error> {
                         let backend = CrosstermBackend::new(stdout);
                         let mut terminal = Terminal::new(backend)?;
                         terminal.draw(|f| {
-                            ui(f, event.column, event.row, vector_colours, &data_string, now);
+                            ui(f, event.column, event.row, vector_colours, now);
                         })?;
 
                     },
@@ -190,10 +204,7 @@ fn main() -> Result<(), io::Error> {
     Ok(())
 }
 
-fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 20], data_string: &str, delta_time: Instant) {
-    let path = path::Path::new("./skitters/skitter001");
-
-    fs::write(path, data_string).expect("file exists!");
+fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40] ; 20], delta_time: Instant) {
 
     let chunks = Layout::default()
     .direction(Direction::Horizontal)
@@ -256,24 +267,33 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
 
     //read the number of stored images
     let skitter_dir = fs::read_dir("./skitters").unwrap();
+    let mut num_skitter = 0;
+    let skit_clone = skitter_dir.into_iter();
+    for _skit in skit_clone {
+        num_skitter += 1;
+    }
+    let skitter_dir = fs::read_dir("./skitters").unwrap();
+
     for skitters in skitter_dir {
         //println!("skitter: {:?}", skitters.unwrap().path().display());
-
+        if num_skitter <= 0 {
+            break;
+        }
         let json_string = fs::read_to_string(skitters.as_ref().expect("No file!").path()).unwrap();
         let json_in = json::parse(&json_string).unwrap();
         let mut skitter_out = vec![];
         let mut skitter_frames = vec![];
         for frame in 0..34 {
-            let frame_name = format!("{}frame", frame);
+            let frame_name = format!("frame{}", frame);
             for row in 0..20 {
                 let frame_row_name = format!("{}row{}", frame_name, row);
                 for col in 0..40 {
                     let frame_row_col_name_b = format!("{}col{}B", frame_row_name, col);
                     let frame_row_col_name_g = format!("{}col{}G", frame_row_name, col);
                     let frame_row_col_name_r = format!("{}col{}R", frame_row_name, col);
-                    let b_u8: u8 = json_in[frame_row_col_name_b].as_u8().unwrap();
-                    let g_u8: u8 = json_in[frame_row_col_name_g].as_u8().unwrap();
-                    let r_u8: u8 = json_in[frame_row_col_name_r].as_u8().unwrap();
+                    let b_u8 = json_in[frame_row_col_name_b].as_u8().expect("not a value!");
+                    let g_u8 = json_in[frame_row_col_name_g].as_u8().expect("not a value!");
+                    let r_u8 = json_in[frame_row_col_name_r].as_u8().expect("not a value!");
                     skitter_out.push(Span::styled( " ", Style::default().bg(Color::Rgb(r_u8, g_u8, b_u8))));
                 }
             }
