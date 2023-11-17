@@ -369,8 +369,11 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
                 }
                 skitter_out.push(Span::raw("\n"));
             }
-
-            skitter_frames.push(&mut skitter_out);
+            let frame_skit_name = format!("frame_{}", frame);
+            match frame_skit_name {
+                String::new("frame_0") => skitter_frames.frame_0 = skitter_out,
+            }
+//            skitter_frames.frame_skit_name.push(&mut skitter_out);
 
         }
 //            let fr: Vec<_> = skitter_out.clone();
