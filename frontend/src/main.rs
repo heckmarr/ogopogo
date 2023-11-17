@@ -22,6 +22,70 @@ use opencv::imgproc::{resize, INTER_AREA};
 use opencv::highgui::{wait_key};
 //Rabbitmq imports
 
+#[derive(Clone)]
+struct SkitterFrame<'a> {
+    frame_0: Vec<Span<'a>>,
+    frame_1: Vec<Span<'a>>,
+    frame_2: Vec<Span<'a>>,
+    frame_3: Vec<Span<'a>>,
+    frame_4: Vec<Span<'a>>,
+    frame_5: Vec<Span<'a>>,
+    frame_6: Vec<Span<'a>>,
+    frame_7: Vec<Span<'a>>,
+    frame_8: Vec<Span<'a>>,
+    frame_9: Vec<Span<'a>>,
+    frame_10: Vec<Span<'a>>,
+    frame_11: Vec<Span<'a>>,
+    frame_12: Vec<Span<'a>>,
+    frame_13: Vec<Span<'a>>,
+    frame_14: Vec<Span<'a>>,
+    frame_15: Vec<Span<'a>>,
+    frame_16: Vec<Span<'a>>,
+    frame_17: Vec<Span<'a>>,
+    frame_18: Vec<Span<'a>>,
+    frame_19: Vec<Span<'a>>,
+    frame_20: Vec<Span<'a>>,
+    frame_21: Vec<Span<'a>>,
+    frame_22: Vec<Span<'a>>,
+    frame_23: Vec<Span<'a>>,
+    frame_24: Vec<Span<'a>>,
+
+}
+
+impl<'a> Default for SkitterFrame<'a> {
+    fn default() -> SkitterFrame<'static> {
+
+        let mut s: SkitterFrame<'a> = SkitterFrame {
+            frame_0: vec![],
+            frame_1: vec![],
+            frame_2 : vec![],
+            frame_3 : vec![],
+            frame_4 : vec![],
+            frame_5 : vec![],
+            frame_6 : vec![],
+            frame_7 : vec![],
+            frame_8 : vec![],
+            frame_9 : vec![],
+            frame_10 : vec![],
+            frame_11 : vec![],
+            frame_12 : vec![],
+            frame_13 : vec![],
+            frame_14 : vec![],
+            frame_15 : vec![],
+            frame_16 : vec![],
+            frame_17 : vec![],
+            frame_18 : vec![],
+            frame_19 : vec![],
+            frame_20 : vec![],
+            frame_21 : vec![],
+            frame_22 : vec![],
+            frame_23 : vec![],
+            frame_24 : vec![],
+        };
+        return s;
+    }
+}
+
 
 
 fn main() -> Result<(), io::Error> {
@@ -45,7 +109,7 @@ fn main() -> Result<(), io::Error> {
     unsafe {let _shrunken_ok = Mat::create_rows_cols(&mut ss, 20, 40, CV_8U);};
     terminal.clear()?;
     //loop and poll for events
-    let mut vector_smash: [[[Vec3b ; 40]; 20]; 35] = [[[Vec3b::default(); 40]; 20]; 35];
+    let mut vector_smash: [[[Vec3b ; 40]; 20]; 24] = [[[Vec3b::default(); 40]; 20]; 24];
     let mut n = 0;
     let mut have_skitter = false;
     let mut count_frame = 0;
@@ -148,7 +212,7 @@ fn main() -> Result<(), io::Error> {
             count_frame += 1;
             //println!("{}", data.dump());
             //break;
-            if count_frame >= 34 {
+            if count_frame >= 24 {
                 count_frame = 0;
             }
 
@@ -279,7 +343,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     }
     let skitter_dir = fs::read_dir("./skitters").unwrap();
 
-    let mut skitter_frames = vec![];
+    let mut skitter_frames: SkitterFrame = <SkitterFrame<'_> as Default>::default();
     for skitters in skitter_dir {
         //println!("skitter: {:?}", skitters.unwrap().path().display());
         if num_skitter <= 0 {
@@ -305,16 +369,20 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
                 }
                 skitter_out.push(Span::raw("\n"));
             }
+
+            skitter_frames.push(&mut skitter_out);
+
+        }
 //            let fr: Vec<_> = skitter_out.clone();
-            skitter_frames.push(skitter_out.clone());
 //            skitter_out = vec![];
 
             let mut count = 0;
-            if count_frame != 0 {
+            //if count_frame == 0 {
 
                 //for n in 0..num_skitter {
                     //if count == count_frame {
-                        let fr = Spans::from(skitter_out.clone());
+
+                        let fr = Spans::from(skitter_frames[count_frame]);
 
                         let recording_block = Paragraph::new(fr)
                             .block(Block::default().title("Recorded").borders(Borders::ALL))
@@ -326,10 +394,10 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
                     count += 1;
                 //};
 
-            }
+            //}
 
 
-        }
+        //}
 
         let mut count = 0;
 
