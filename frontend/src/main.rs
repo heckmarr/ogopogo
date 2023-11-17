@@ -148,7 +148,7 @@ fn main() -> Result<(), io::Error> {
             count_frame += 1;
             //println!("{}", data.dump());
             //break;
-            if count_frame >= 35 {
+            if count_frame >= 34 {
                 count_frame = 0;
             }
 
@@ -289,7 +289,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
         let json_in = json::parse(&json_string).unwrap();
         let mut skitter_out = vec![];
 
-
+        let fr: Vec<Span> = vec![];
         for frame in 0..34 {
             let frame_name = format!("frame{}", frame);
             for row in 0..20 {
@@ -301,18 +301,40 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
                     let b_u8 = json_in[frame_row_col_name_b].as_u8().expect("not a value!");
                     let g_u8 = json_in[frame_row_col_name_g].as_u8().expect("not a value!");
                     let r_u8 = json_in[frame_row_col_name_r].as_u8().expect("not a value!");
-                    skitter_out.push(Span::styled( " ", Style::default().bg(Color::Rgb(r_u8, g_u8, b_u8))));
+                    skitter_out.push(Span::styled( "A", Style::default().bg(Color::Rgb(r_u8, g_u8, b_u8))));
                 }
+                skitter_out.push(Span::raw("\n"));
             }
-            let fr = skitter_out.clone();
-            skitter_frames.push(fr);
-            skitter_out = vec![];
+//            let fr: Vec<_> = skitter_out.clone();
+            skitter_frames.push(skitter_out.clone());
+//            skitter_out = vec![];
+
+            let mut count = 0;
+            if count_frame != 0 {
+
+                //for n in 0..num_skitter {
+                    //if count == count_frame {
+                        let fr = Spans::from(skitter_out.clone());
+
+                        let recording_block = Paragraph::new(fr)
+                            .block(Block::default().title("Recorded").borders(Borders::ALL))
+                            .alignment(Alignment::Center)
+                            .wrap(Wrap {trim: true});
+                        f.render_widget(recording_block, chunks[4]);
+
+                    //}
+                    count += 1;
+                //};
+
+            }
+
+
         }
-        let skit = skitter_frames[0].clone();
 
         let mut count = 0;
-        //if count_frame != 0 {
 
+        //if count_frame != 0 {
+/*
             for n in 0..num_skitter {
                 if n == count_frame {
                     let fr = Spans::from(skit.clone());
@@ -324,28 +346,10 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
                     f.render_widget(recording_block, chunks[4]);
 
                 }
-            };
+            };*/
 
         //}
 
-        let mut count = 0;
-        if count_frame != 0 {
-
-            for n in 0..num_skitter {
-                if count == count_frame {
-                    let fr = Spans::from(skitter_frames[n]);
-
-                    let recording_block = Paragraph::new(fr)
-                        .block(Block::default().title("Recorded").borders(Borders::ALL))
-                        .alignment(Alignment::Center)
-                        .wrap(Wrap {trim: true});
-                    f.render_widget(recording_block, chunks[4]);
-
-                }
-                count += 1;
-            };
-
-        }
 
 
         let elapsed_time = delta_time.elapsed();
