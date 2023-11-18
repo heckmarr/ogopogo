@@ -21,66 +21,126 @@ use opencv::core::{Mat, CV_8U, Vec3b};
 use opencv::imgproc::{resize, INTER_AREA};
 use opencv::highgui::{wait_key};
 //Rabbitmq imports
-
+#[derive(Clone)]
+struct SkitterFrameIt<'a> {
+    frame: Vec<Span<'a>>,
+}
+impl Default for SkitterFrameIt<'a> {
+    frame: vec![],
+}
 #[derive(Clone)]
 struct SkitterFrame<'a> {
-    frame_0: Vec<Span<'a>>,
-    frame_1: Vec<Span<'a>>,
-    frame_2: Vec<Span<'a>>,
-    frame_3: Vec<Span<'a>>,
-    frame_4: Vec<Span<'a>>,
-    frame_5: Vec<Span<'a>>,
-    frame_6: Vec<Span<'a>>,
-    frame_7: Vec<Span<'a>>,
-    frame_8: Vec<Span<'a>>,
-    frame_9: Vec<Span<'a>>,
-    frame_10: Vec<Span<'a>>,
-    frame_11: Vec<Span<'a>>,
-    frame_12: Vec<Span<'a>>,
-    frame_13: Vec<Span<'a>>,
-    frame_14: Vec<Span<'a>>,
-    frame_15: Vec<Span<'a>>,
-    frame_16: Vec<Span<'a>>,
-    frame_17: Vec<Span<'a>>,
-    frame_18: Vec<Span<'a>>,
-    frame_19: Vec<Span<'a>>,
-    frame_20: Vec<Span<'a>>,
-    frame_21: Vec<Span<'a>>,
-    frame_22: Vec<Span<'a>>,
-    frame_23: Vec<Span<'a>>,
-    frame_24: Vec<Span<'a>>,
+    frame_0: SkitterFrameIt<'a>,
+    frame_1: SkitterFrameIt<'a>,
+    frame_2: SkitterFrameIt<'a>,
+    frame_3: SkitterFrameIt<'a>,
+    frame_4: SkitterFrameIt<'a>,
+    frame_5: SkitterFrameIt<'a>,
+    frame_6: SkitterFrameIt<'a>,
+    frame_7: SkitterFrameIt<'a>,
+    frame_8: SkitterFrameIt<'a>,
+    frame_9: SkitterFrameIt<'a>,
+    frame_10: SkitterFrameIt<'a>,
+    frame_11: SkitterFrameIt<'a>,
+    frame_12: SkitterFrameIt<'a>,
+    frame_13: SkitterFrameIt<'a>,
+    frame_14: SkitterFrameIt<'a>,
+    frame_15: SkitterFrameIt<'a>,
+    frame_16: SkitterFrameIt<'a>,
+    frame_17: SkitterFrameIt<'a>,
+    frame_18: SkitterFrameIt<'a>,
+    frame_19: SkitterFrameIt<'a>,
+    frame_20: SkitterFrameIt<'a>,
+    frame_21: SkitterFrameIt<'a>,
+    frame_22: SkitterFrameIt<'a>,
+    frame_23: SkitterFrameIt<'a>,
+    frame_24: SkitterFrameIt<'a>,
 
 }
 
+impl<'a> IntoIterator for SkitterFrameIt<'a> {
+    type Item = Vec<Span<'a>>;
+    type IntoIter = SkitterFrameIntoIter<'a>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        SkitterFrameIntoIter {
+            skitter: SkitterFrameIt<'a>,
+            index: 0,
+        }
+    }
+}
+
+struct SkitterFrameIntoIter<'a> {
+    frame: Vec<Span<'a>>,
+    index: usize,
+}
+
+impl<'a> Iterator for SkitterFrame<'a> {
+
+    fn next(&mut self) -> Option<Vec<Span<'a>>> {
+        type Item<'a> = Vec<Span<'a>>;
+        let result = match self.index {
+            0 => self.frame_0,
+            1 => self.frame_1,
+            2 => self.frame_2,
+            3 => self.frame_3,
+            4 => self.frame_4,
+            5 => self.frame_5,
+            6 => self.frame_6,
+            7 => self.frame_7,
+            8 => self.frame_8,
+            9 => self.frame_9,
+            10 => self.frame_10,
+            11 => self.frame_11,
+            12 => self.frame_12,
+            13 => self.frame_13,
+            14 => self.frame_14,
+            15 => self.frame_15,
+            16 => self.frame_16,
+            17 => self.frame_17,
+            18 => self.frame_18,
+            19 => self.frame_19,
+            20 => self.frame_20,
+            21 => self.frame_21,
+            22 => self.frame_22,
+            23 => self.frame_23,
+            24 => self.frame_24,
+            _ => return None,
+        };
+        self.index += 1;
+        Some(result)
+    }
+}
 impl<'a> Default for SkitterFrame<'a> {
+
     fn default() -> SkitterFrame<'static> {
 
         let mut s: SkitterFrame<'a> = SkitterFrame {
-            frame_0: vec![],
-            frame_1: vec![],
-            frame_2 : vec![],
-            frame_3 : vec![],
-            frame_4 : vec![],
-            frame_5 : vec![],
-            frame_6 : vec![],
-            frame_7 : vec![],
-            frame_8 : vec![],
-            frame_9 : vec![],
-            frame_10 : vec![],
-            frame_11 : vec![],
-            frame_12 : vec![],
-            frame_13 : vec![],
-            frame_14 : vec![],
-            frame_15 : vec![],
-            frame_16 : vec![],
-            frame_17 : vec![],
-            frame_18 : vec![],
-            frame_19 : vec![],
-            frame_20 : vec![],
-            frame_21 : vec![],
-            frame_22 : vec![],
-            frame_23 : vec![],
-            frame_24 : vec![],
+            frame_0: SkitterFrameIt<'a>,
+            frame_1: SkitterFrameIt<'a>,
+            frame_2 : SkitterFrameIt<'a>,
+            frame_3 : SkitterFrameIt<'a>,
+            frame_4 : SkitterFrameIt<'a>,
+            frame_5 : SkitterFrameIt<'a>,
+            frame_6 : SkitterFrameIt<'a>,
+            frame_7 : SkitterFrameIt<'a>,
+            frame_8 : SkitterFrameIt<'a>,
+            frame_9 : SkitterFrameIt<'a>,
+            frame_10 : SkitterFrameIt<'a>,
+            frame_11 : SkitterFrameIt<'a>,
+            frame_12 : SkitterFrameIt<'a>,
+            frame_13 : SkitterFrameIt<'a>,
+            frame_14 : SkitterFrameIt<'a>,
+            frame_15 : SkitterFrameIt<'a>,
+            frame_16 : SkitterFrameIt<'a>,
+            frame_17 : SkitterFrameIt<'a>,
+            frame_18 : SkitterFrameIt<'a>,
+            frame_19 : SkitterFrameIt<'a>,
+            frame_20 : SkitterFrameIt<'a>,
+            frame_21 : SkitterFrameIt<'a>,
+            frame_22 : SkitterFrameIt<'a>,
+            frame_23 : SkitterFrameIt<'a>,
+            frame_24 : SkitterFrameIt<'a>,
         };
         return s;
     }
@@ -369,23 +429,53 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
                 }
                 skitter_out.push(Span::raw("\n"));
             }
-            let frame_skit_name = format!("frame_{}", frame);
+            let frame_skit_name = &format!("frame_{}", frame) as &str;
             match frame_skit_name {
-                String::new("frame_0") => skitter_frames.frame_0 = skitter_out,
+                "frame_0" => skitter_frames.frame_0 = SkitterFrameIt { frame: skitter_out },
+                "frame_1" => skitter_frames.frame_1 = SkitterFrameIt { frame: skitter_out },
+                "frame_2" => skitter_frames.frame_2 = SkitterFrameIt { frame: skitter_out },
+                "frame_3" => skitter_frames.frame_3 = SkitterFrameIt { frame: skitter_out },
+                "frame_4" => skitter_frames.frame_4 = SkitterFrameIt { frame: skitter_out },
+                "frame_5" => skitter_frames.frame_5 = SkitterFrameIt { frame: skitter_out },
+                "frame_6" => skitter_frames.frame_6 = SkitterFrameIt { frame: skitter_out },
+                "frame_7" => skitter_frames.frame_7 = SkitterFrameIt { frame: skitter_out },
+                "frame_8" => skitter_frames.frame_8 = SkitterFrameIt { frame: skitter_out },
+                "frame_9" => skitter_frames.frame_9 = SkitterFrameIt { frame: skitter_out },
+                "frame_10" => skitter_frames.frame_10 = SkitterFrameIt { frame: skitter_out },
+                "frame_11" => skitter_frames.frame_11 = SkitterFrameIt { frame: skitter_out },
+                "frame_12" => skitter_frames.frame_12 = SkitterFrameIt { frame: skitter_out },
+                "frame_13" => skitter_frames.frame_13 = SkitterFrameIt { frame: skitter_out },
+                "frame_14" => skitter_frames.frame_14 = SkitterFrameIt { frame: skitter_out },
+                "frame_15" => skitter_frames.frame_15 = SkitterFrameIt { frame: skitter_out },
+                "frame_16" => skitter_frames.frame_16 = SkitterFrameIt { frame: skitter_out },
+                "frame_17" => skitter_frames.frame_17 = SkitterFrameIt { frame: skitter_out },
+                "frame_18" => skitter_frames.frame_18 = SkitterFrameIt { frame: skitter_out },
+                "frame_19" => skitter_frames.frame_19 = SkitterFrameIt { frame: skitter_out },
+                "frame_20" => skitter_frames.frame_20 = SkitterFrameIt { frame: skitter_out },
+                "frame_21" => skitter_frames.frame_21 = SkitterFrameIt { frame: skitter_out },
+                "frame_22" => skitter_frames.frame_22 = SkitterFrameIt { frame: skitter_out },
+                "frame_23" => skitter_frames.frame_23 = SkitterFrameIt { frame: skitter_out },
+                "frame_24" => skitter_frames.frame_24 = SkitterFrameIt { frame: skitter_out },
+
             }
-//            skitter_frames.frame_skit_name.push(&mut skitter_out);
+//            skitter_frames.frame_skit_name.push(&mut SkitterFrameIt { frame: skitter_out },);
 
         }
 //            let fr: Vec<_> = skitter_out.clone();
 //            skitter_out = vec![];
-
+            for shown_frame in skitter_frames {
+                let fr = Spans::from(shown_frame);
+            }
             let mut count = 0;
             //if count_frame == 0 {
 
                 //for n in 0..num_skitter {
                     //if count == count_frame {
 
-                        let fr = Spans::from(skitter_frames[count_frame]);
+
+
+
+//                        let fr = Spans::from(skitter_frames[count_frame]);
 
                         let recording_block = Paragraph::new(fr)
                             .block(Block::default().title("Recorded").borders(Borders::ALL))
