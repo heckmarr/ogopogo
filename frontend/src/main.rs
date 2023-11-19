@@ -429,7 +429,8 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
 //    }
 
         let fr_shown = &format!("frame_{}", count_frame) as &str;
-        let frame_shown: Vec<Span> = match fr_shown {
+        let mut frame_shown: Vec<Span> = vec![];
+        let mut frame_shown: Vec<Span> = match fr_shown {
                 "frame_0" => skitter_frames.frame_0,
                 "frame_1" => skitter_frames.frame_1,
                 "frame_2" => skitter_frames.frame_2,
@@ -471,8 +472,8 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
 
 
 
-
-                        let fr = Spans::from(frame_shown);
+                        let mut fr: Vec<Span> = vec![];
+                        let mut fr = Spans::from(frame_shown);
 
                         let recording_block = Paragraph::new(fr)
                             .block(Block::default().title("Recorded").borders(Borders::ALL))
