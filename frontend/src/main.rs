@@ -22,7 +22,34 @@ use opencv::imgproc::{resize, INTER_AREA};
 use opencv::highgui::{wait_key};
 //Rabbitmq imports
 
+enum SkitterFrame<'a> {
+    Frame0(Vec<Span'a>),
+    Frame1(Vec<Span'a>),
+    Frame2(Vec<Span'a>),
+    Frame3(Vec<Span'a>),
+    Frame4(Vec<Span'a>),
+    Frame5(Vec<Span'a>),
+    Frame6(Vec<Span'a>),
+    Frame7(Vec<Span'a>),
+    Frame8(Vec<Span'a>),
+    Frame9(Vec<Span'a>),
+    Frame10(Vec<Span'a>),
+    Frame11(Vec<Span'a>),
+    Frame12(Vec<Span'a>),
+    Frame13(Vec<Span'a>),
+    Frame14(Vec<Span'a>),
+    Frame15(Vec<Span'a>),
+    Frame16(Vec<Span'a>),
+    Frame17(Vec<Span'a>),
+    Frame18(Vec<Span'a>),
+    Frame19(Vec<Span'a>),
+    Frame20(Vec<Span'a>),
+    Frame21(Vec<Span'a>),
+    Frame22(Vec<Span'a>),
+    Frame23(Vec<Span'a>),
+    Frame24(Vec<Span'a>),
 
+}
 
 fn main() -> Result<(), io::Error> {
 
