@@ -306,7 +306,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
                  Constraint::Length(41),
                  Constraint::Length(40),
                  Constraint::Length(40),
-                 Constraint::Length(40),
+                 Constraint::Length(42),
                  Constraint::Percentage(10),
     ].as_ref()
     )
