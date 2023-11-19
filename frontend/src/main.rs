@@ -359,167 +359,121 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
 
 
     //read the number of stored images
-    let skitter_dir = fs::read_dir("./skitters").unwrap();
-    let mut num_skitter = 0;
-    let skit_clone = skitter_dir.into_iter();
-    for _skit in skit_clone {
-        num_skitter += 1;
-    }
-    let skitter_dir = fs::read_dir("./skitters").unwrap();
-    let mut skitter_frames = <SkitterFrameStruct<'_> as Default>::default();
-    //let mut skitter_frames: SkitterFrame = <SkitterFrame<'_> as Default>::default();
-    //for skitters in skitter_dir {
-        //println!("skitter: {:?}", skitters.unwrap().path().display());
-//        if num_skitter <= 0 {
-//            break;
-//        }
-        let json_string = fs::read_to_string(path::Path::new("skitters/skitter000")).unwrap();
-        let json_in = json::parse(&json_string).unwrap();
-        //let mut skitter_out = vec![];
-
-        let fr: Vec<Span> = vec![];
-        for frame in 0..24 {
-            let mut skitter_out: Vec<Span> = vec![];
-            let frame_name = format!("frame{}", frame);
-            for row in 0..20 {
-                let frame_row_name = format!("{}row{}", frame_name, row);
-                for col in 0..40 {
-                    let frame_row_col_name_b = format!("{}col{}B", frame_row_name, col);
-                    let frame_row_col_name_g = format!("{}col{}G", frame_row_name, col);
-                    let frame_row_col_name_r = format!("{}col{}R", frame_row_name, col);
-                    let b_u8 = json_in[frame_row_col_name_b].as_u8().expect("not a value!");
-                    let g_u8 = json_in[frame_row_col_name_g].as_u8().expect("not a value!");
-                    let r_u8 = json_in[frame_row_col_name_r].as_u8().expect("not a value!");
-                    skitter_out.push(Span::styled("B", Style::default().bg(Color::Rgb(r_u8, g_u8, b_u8))));
-                }
-                skitter_out.push(Span::raw("\n"));
-            }
-
-            let frame_skit_name = &format!("frame_{}", frame) as &str;
-            match frame_skit_name {
-                "frame_0" => skitter_frames.frame_0 = skitter_out.clone(),
-                "frame_1" => skitter_frames.frame_1 = skitter_out.clone(),
-                "frame_2" => skitter_frames.frame_2 = skitter_out.clone(),
-                "frame_3" => skitter_frames.frame_3 = skitter_out.clone(),
-                "frame_4" => skitter_frames.frame_4 = skitter_out.clone(),
-                "frame_5" => skitter_frames.frame_5 = skitter_out.clone(),
-                "frame_6" => skitter_frames.frame_6 = skitter_out.clone(),
-                "frame_7" => skitter_frames.frame_7 = skitter_out.clone(),
-                "frame_8" => skitter_frames.frame_8 = skitter_out.clone(),
-                "frame_9" => skitter_frames.frame_9 = skitter_out.clone(),
-                "frame_10" => skitter_frames.frame_10 = skitter_out.clone(),
-                "frame_11" => skitter_frames.frame_11 = skitter_out.clone(),
-                "frame_12" => skitter_frames.frame_12 = skitter_out.clone(),
-                "frame_13" => skitter_frames.frame_13 = skitter_out.clone(),
-                "frame_14" => skitter_frames.frame_14 = skitter_out.clone(),
-                "frame_15" => skitter_frames.frame_15 = skitter_out.clone(),
-                "frame_16" => skitter_frames.frame_16 = skitter_out.clone(),
-                "frame_17" => skitter_frames.frame_17 = skitter_out.clone(),
-                "frame_18" => skitter_frames.frame_18 = skitter_out.clone(),
-                "frame_19" => skitter_frames.frame_19 = skitter_out.clone(),
-                "frame_20" => skitter_frames.frame_20 = skitter_out.clone(),
-                "frame_21" => skitter_frames.frame_21 = skitter_out.clone(),
-                "frame_22" => skitter_frames.frame_22 = skitter_out.clone(),
-                "frame_23" => skitter_frames.frame_23 = skitter_out.clone(),
-                "frame_24" => skitter_frames.frame_24 = skitter_out.clone(),
-                _ => todo!(),
-            };
-//            skitter_frames.frame_skit_name.push(&mut SkitterFrameIt { frame: skitter_out },);
-
-        }
+    //currently this just reads one skitter only
+    //Todo!
+//    let skitter_dir = fs::read_dir("./skitters").unwrap();
+//    let mut num_skitter = 0;
+//    let skit_clone = skitter_dir.into_iter();
+//    for _skit in skit_clone {
+//        num_skitter += 1;
 //    }
+//    let skitter_dir = fs::read_dir("./skitters").unwrap();
+    let mut skitter_frames = <SkitterFrameStruct<'_> as Default>::default();
 
-        let fr_shown = &format!("frame_{}", count_frame) as &str;
-        let frame_shown: Vec<Span> = vec![];
-        let frame_shown: Vec<Span> = match fr_shown {
-                "frame_0" => skitter_frames.frame_0,
-                "frame_1" => skitter_frames.frame_1,
-                "frame_2" => skitter_frames.frame_2,
-                "frame_3" => skitter_frames.frame_3,
-                "frame_4" => skitter_frames.frame_4,
-                "frame_5" => skitter_frames.frame_5,
-                "frame_6" => skitter_frames.frame_6,
-                "frame_7" => skitter_frames.frame_7,
-                "frame_8" => skitter_frames.frame_8,
-                "frame_9" => skitter_frames.frame_9,
-                "frame_10" => skitter_frames.frame_10,
-                "frame_11" => skitter_frames.frame_11,
-                "frame_12" => skitter_frames.frame_12,
-                "frame_13" => skitter_frames.frame_13,
-                "frame_14" => skitter_frames.frame_14,
-                "frame_15" => skitter_frames.frame_15,
-                "frame_16" => skitter_frames.frame_16,
-                "frame_17" => skitter_frames.frame_17,
-                "frame_18" => skitter_frames.frame_18,
-                "frame_19" => skitter_frames.frame_19,
-                "frame_20" => skitter_frames.frame_20,
-                "frame_21" => skitter_frames.frame_21,
-                "frame_22" => skitter_frames.frame_22,
-                "frame_23" => skitter_frames.frame_23,
-                "frame_24" => skitter_frames.frame_24,
-                _ => todo!(),
+    let json_string = fs::read_to_string(path::Path::new("skitters/skitter000")).unwrap();
+    let json_in = json::parse(&json_string).unwrap();
 
-            };
-//            let fr: Vec<_> = skitter_out.clone();
-//            skitter_out = vec![];
-            //for shown_frame in skitter_frames {
-            //    let fr = Spans::from(shown_frame);
-            //}
-            let mut count = 0;
-            //if count_frame == 0 {
+    for frame in 0..24 {
+        let mut skitter_out: Vec<Span> = vec![];
+        let frame_name = format!("frame{}", frame);
+        for row in 0..20 {
+            let frame_row_name = format!("{}row{}", frame_name, row);
+            for col in 0..40 {
+                let frame_row_col_name_b = format!("{}col{}B", frame_row_name, col);
+                let frame_row_col_name_g = format!("{}col{}G", frame_row_name, col);
+                let frame_row_col_name_r = format!("{}col{}R", frame_row_name, col);
+                let b_u8 = json_in[frame_row_col_name_b].as_u8().expect("not a value!");
+                let g_u8 = json_in[frame_row_col_name_g].as_u8().expect("not a value!");
+                let r_u8 = json_in[frame_row_col_name_r].as_u8().expect("not a value!");
+                skitter_out.push(Span::styled("B", Style::default().bg(Color::Rgb(r_u8, g_u8, b_u8))));
+            }
+            skitter_out.push(Span::raw("\n"));
+        }
 
-                //for n in 0..num_skitter {
-                    //if count == count_frame {
+        let frame_skit_name = &format!("frame_{}", frame) as &str;
+        match frame_skit_name {
+            "frame_0" => skitter_frames.frame_0 = skitter_out.clone(),
+            "frame_1" => skitter_frames.frame_1 = skitter_out.clone(),
+            "frame_2" => skitter_frames.frame_2 = skitter_out.clone(),
+            "frame_3" => skitter_frames.frame_3 = skitter_out.clone(),
+            "frame_4" => skitter_frames.frame_4 = skitter_out.clone(),
+            "frame_5" => skitter_frames.frame_5 = skitter_out.clone(),
+            "frame_6" => skitter_frames.frame_6 = skitter_out.clone(),
+            "frame_7" => skitter_frames.frame_7 = skitter_out.clone(),
+            "frame_8" => skitter_frames.frame_8 = skitter_out.clone(),
+            "frame_9" => skitter_frames.frame_9 = skitter_out.clone(),
+            "frame_10" => skitter_frames.frame_10 = skitter_out.clone(),
+            "frame_11" => skitter_frames.frame_11 = skitter_out.clone(),
+            "frame_12" => skitter_frames.frame_12 = skitter_out.clone(),
+            "frame_13" => skitter_frames.frame_13 = skitter_out.clone(),
+            "frame_14" => skitter_frames.frame_14 = skitter_out.clone(),
+            "frame_15" => skitter_frames.frame_15 = skitter_out.clone(),
+            "frame_16" => skitter_frames.frame_16 = skitter_out.clone(),
+            "frame_17" => skitter_frames.frame_17 = skitter_out.clone(),
+            "frame_18" => skitter_frames.frame_18 = skitter_out.clone(),
+            "frame_19" => skitter_frames.frame_19 = skitter_out.clone(),
+            "frame_20" => skitter_frames.frame_20 = skitter_out.clone(),
+            "frame_21" => skitter_frames.frame_21 = skitter_out.clone(),
+            "frame_22" => skitter_frames.frame_22 = skitter_out.clone(),
+            "frame_23" => skitter_frames.frame_23 = skitter_out.clone(),
+            "frame_24" => skitter_frames.frame_24 = skitter_out.clone(),
+            _ => todo!(),
+        };
 
-
-
-                        let fr: Vec<Span> = vec![];
-                        let fr = Spans::from(frame_shown);
-
-                        let recording_block = Paragraph::new(fr)
-                            .block(Block::default().title("Recorded").borders(Borders::ALL))
-                            .alignment(Alignment::Center)
-                            .wrap(Wrap {trim: true});
-                        f.render_widget(recording_block, chunks[4]);
-
-                    //}
-                    count += 1;
-                //};
-
-            //}
+    }
 
 
-        //}
+    let fr_shown = &format!("frame_{}", count_frame) as &str;
+    let frame_shown: Vec<Span> = match fr_shown {
+            "frame_0" => skitter_frames.frame_0,
+            "frame_1" => skitter_frames.frame_1,
+            "frame_2" => skitter_frames.frame_2,
+            "frame_3" => skitter_frames.frame_3,
+            "frame_4" => skitter_frames.frame_4,
+            "frame_5" => skitter_frames.frame_5,
+            "frame_6" => skitter_frames.frame_6,
+            "frame_7" => skitter_frames.frame_7,
+            "frame_8" => skitter_frames.frame_8,
+            "frame_9" => skitter_frames.frame_9,
+            "frame_10" => skitter_frames.frame_10,
+            "frame_11" => skitter_frames.frame_11,
+            "frame_12" => skitter_frames.frame_12,
+            "frame_13" => skitter_frames.frame_13,
+            "frame_14" => skitter_frames.frame_14,
+            "frame_15" => skitter_frames.frame_15,
+            "frame_16" => skitter_frames.frame_16,
+            "frame_17" => skitter_frames.frame_17,
+            "frame_18" => skitter_frames.frame_18,
+            "frame_19" => skitter_frames.frame_19,
+            "frame_20" => skitter_frames.frame_20,
+            "frame_21" => skitter_frames.frame_21,
+            "frame_22" => skitter_frames.frame_22,
+            "frame_23" => skitter_frames.frame_23,
+            "frame_24" => skitter_frames.frame_24,
+            _ => todo!(),
 
-        let mut count = 0;
-
-        //if count_frame != 0 {
-/*
-            for n in 0..num_skitter {
-                if n == count_frame {
-                    let fr = Spans::from(skit.clone());
-
-                    let recording_block = Paragraph::new(fr)
-                        .block(Block::default().title("Recorded").borders(Borders::ALL))
-                        .alignment(Alignment::Center)
-                        .wrap(Wrap {trim: true});
-                    f.render_widget(recording_block, chunks[4]);
-
-                }
-            };*/
-
-        //}
+        };
 
 
 
-        let elapsed_time = delta_time.elapsed();
-        let timing = format!(":{} milliseconds have elapsed", elapsed_time.as_millis());
-        let recording_block = Paragraph::new(Span::raw(timing))
-            .block(Block::default().title("Timing").borders(Borders::ALL))
-            .alignment(Alignment::Center)
-            .wrap(Wrap {trim: true});
-        f.render_widget(recording_block, chunks[3]);
-    //}
+    let fr = Spans::from(frame_shown);
+
+    let recording_block = Paragraph::new(fr)
+        .block(Block::default().title("Recorded").borders(Borders::ALL))
+        .alignment(Alignment::Center)
+        .wrap(Wrap {trim: true});
+    f.render_widget(recording_block, chunks[4]);
+
+
+
+
+    let elapsed_time = delta_time.elapsed();
+    let timing = format!(":{} milliseconds have elapsed", elapsed_time.as_millis());
+    let recording_block = Paragraph::new(Span::raw(timing))
+        .block(Block::default().title("Timing").borders(Borders::ALL))
+        .alignment(Alignment::Center)
+        .wrap(Wrap {trim: true});
+    f.render_widget(recording_block, chunks[3]);
 
 
 
