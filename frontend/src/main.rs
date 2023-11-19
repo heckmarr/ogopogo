@@ -375,10 +375,11 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
 //        }
         let json_string = fs::read_to_string(path::Path::new("skitters/skitter000")).unwrap();
         let json_in = json::parse(&json_string).unwrap();
-        let mut skitter_out = vec![];
+        //let mut skitter_out = vec![];
 
         let fr: Vec<Span> = vec![];
         for frame in 0..24 {
+            let mut skitter_out: Vec<Span> = vec![];
             let frame_name = format!("frame{}", frame);
             for row in 0..20 {
                 let frame_row_name = format!("{}row{}", frame_name, row);
@@ -389,7 +390,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
                     let b_u8 = json_in[frame_row_col_name_b].as_u8().expect("not a value!");
                     let g_u8 = json_in[frame_row_col_name_g].as_u8().expect("not a value!");
                     let r_u8 = json_in[frame_row_col_name_r].as_u8().expect("not a value!");
-                    skitter_out.push(Span::styled( "A", Style::default().bg(Color::Rgb(r_u8, g_u8, b_u8))));
+                    skitter_out.push(Span::styled("B", Style::default().bg(Color::Rgb(r_u8, g_u8, b_u8))));
                 }
                 skitter_out.push(Span::raw("\n"));
             }
@@ -429,8 +430,8 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
 //    }
 
         let fr_shown = &format!("frame_{}", count_frame) as &str;
-        let mut frame_shown: Vec<Span> = vec![];
-        let mut frame_shown: Vec<Span> = match fr_shown {
+        let frame_shown: Vec<Span> = vec![];
+        let frame_shown: Vec<Span> = match fr_shown {
                 "frame_0" => skitter_frames.frame_0,
                 "frame_1" => skitter_frames.frame_1,
                 "frame_2" => skitter_frames.frame_2,
@@ -456,7 +457,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
                 "frame_22" => skitter_frames.frame_22,
                 "frame_23" => skitter_frames.frame_23,
                 "frame_24" => skitter_frames.frame_24,
-                _ => skitter_frames.frame_0,
+                _ => todo!(),
 
             };
 //            let fr: Vec<_> = skitter_out.clone();
@@ -472,8 +473,8 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
 
 
 
-                        let mut fr: Vec<Span> = vec![];
-                        let mut fr = Spans::from(frame_shown);
+                        let fr: Vec<Span> = vec![];
+                        let fr = Spans::from(frame_shown);
 
                         let recording_block = Paragraph::new(fr)
                             .block(Block::default().title("Recorded").borders(Borders::ALL))
