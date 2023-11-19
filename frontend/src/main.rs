@@ -49,7 +49,66 @@ enum SkitterFrame<'a> {
     Frame23(Vec<Span<'a>>),
     Frame24(Vec<Span<'a>>),
 }
+struct SkitterFrameStruct<'a> {
+    frame_0: SkitterFrame<'a>,
+    frame_1: SkitterFrame<'a>,
+    frame_2: SkitterFrame<'a>,
+    frame_3: SkitterFrame<'a>,
+    frame_4: SkitterFrame<'a>,
+    frame_5: SkitterFrame<'a>,
+    frame_6: SkitterFrame<'a>,
+    frame_7: SkitterFrame<'a>,
+    frame_8: SkitterFrame<'a>,
+    frame_9: SkitterFrame<'a>,
+    frame_10: SkitterFrame<'a>,
+    frame_11: SkitterFrame<'a>,
+    frame_12: SkitterFrame<'a>,
+    frame_13: SkitterFrame<'a>,
+    frame_14: SkitterFrame<'a>,
+    frame_15: SkitterFrame<'a>,
+    frame_16: SkitterFrame<'a>,
+    frame_17: SkitterFrame<'a>,
+    frame_18: SkitterFrame<'a>,
+    frame_19: SkitterFrame<'a>,
+    frame_20: SkitterFrame<'a>,
+    frame_21: SkitterFrame<'a>,
+    frame_22: SkitterFrame<'a>,
+    frame_23: SkitterFrame<'a>,
+    frame_24: SkitterFrame<'a>,
 
+}
+impl<'a> Default for SkitterFrameStruct<'a> {
+    fn default() -> SkitterFrameStruct<'a> {
+        let s: SkitterFrameStruct<'a> = SkitterFrameStruct {
+            frame_0: SkitterFrame::Frame0(vec![]),
+            frame_1: SkitterFrame::Frame1(vec![]),
+            frame_2: SkitterFrame::Frame2(vec![]),
+            frame_3: SkitterFrame::Frame3(vec![]),
+            frame_4: SkitterFrame::Frame4(vec![]),
+            frame_5: SkitterFrame::Frame5(vec![]),
+            frame_6: SkitterFrame::Frame6(vec![]),
+            frame_7: SkitterFrame::Frame7(vec![]),
+            frame_8: SkitterFrame::Frame8(vec![]),
+            frame_9: SkitterFrame::Frame9(vec![]),
+            frame_10: SkitterFrame::Frame10(vec![]),
+            frame_11: SkitterFrame::Frame11(vec![]),
+            frame_12: SkitterFrame::Frame12(vec![]),
+            frame_13: SkitterFrame::Frame13(vec![]),
+            frame_14: SkitterFrame::Frame14(vec![]),
+            frame_15: SkitterFrame::Frame15(vec![]),
+            frame_16: SkitterFrame::Frame16(vec![]),
+            frame_17: SkitterFrame::Frame17(vec![]),
+            frame_18: SkitterFrame::Frame18(vec![]),
+            frame_19: SkitterFrame::Frame19(vec![]),
+            frame_20: SkitterFrame::Frame20(vec![]),
+            frame_21: SkitterFrame::Frame21(vec![]),
+            frame_22: SkitterFrame::Frame22(vec![]),
+            frame_23: SkitterFrame::Frame23(vec![]),
+            frame_24: SkitterFrame::Frame24(vec![]),
+        };
+        return s;
+    }
+}
 
 
 fn main() -> Result<(), io::Error> {
@@ -306,7 +365,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
         num_skitter += 1;
     }
     let skitter_dir = fs::read_dir("./skitters").unwrap();
-    let mut skitter_frames: Vec<Span> = vec![];
+    let mut skitter_frames = <SkitterFrameStruct<'_> as Default>::default();
     //let mut skitter_frames: SkitterFrame = <SkitterFrame<'_> as Default>::default();
     for skitters in skitter_dir {
         //println!("skitter: {:?}", skitters.unwrap().path().display());
@@ -336,31 +395,32 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
 
             let frame_skit_name = &format!("frame_{}", frame) as &str;
             match frame_skit_name {
-                "frame_0" => skitter_frames.frame_0 = SkitterFrameIt { frame: skitter_out },
-                "frame_1" => skitter_frames.frame_1 = SkitterFrameIt { frame: skitter_out },
-                "frame_2" => skitter_frames.frame_2 = SkitterFrameIt { frame: skitter_out },
-                "frame_3" => skitter_frames.frame_3 = SkitterFrameIt { frame: skitter_out },
-                "frame_4" => skitter_frames.frame_4 = SkitterFrameIt { frame: skitter_out },
-                "frame_5" => skitter_frames.frame_5 = SkitterFrameIt { frame: skitter_out },
-                "frame_6" => skitter_frames.frame_6 = SkitterFrameIt { frame: skitter_out },
-                "frame_7" => skitter_frames.frame_7 = SkitterFrameIt { frame: skitter_out },
-                "frame_8" => skitter_frames.frame_8 = SkitterFrameIt { frame: skitter_out },
-                "frame_9" => skitter_frames.frame_9 = SkitterFrameIt { frame: skitter_out },
-                "frame_10" => skitter_frames.frame_10 = SkitterFrameIt { frame: skitter_out },
-                "frame_11" => skitter_frames.frame_11 = SkitterFrameIt { frame: skitter_out },
-                "frame_12" => skitter_frames.frame_12 = SkitterFrameIt { frame: skitter_out },
-                "frame_13" => skitter_frames.frame_13 = SkitterFrameIt { frame: skitter_out },
-                "frame_14" => skitter_frames.frame_14 = SkitterFrameIt { frame: skitter_out },
-                "frame_15" => skitter_frames.frame_15 = SkitterFrameIt { frame: skitter_out },
-                "frame_16" => skitter_frames.frame_16 = SkitterFrameIt { frame: skitter_out },
-                "frame_17" => skitter_frames.frame_17 = SkitterFrameIt { frame: skitter_out },
-                "frame_18" => skitter_frames.frame_18 = SkitterFrameIt { frame: skitter_out },
-                "frame_19" => skitter_frames.frame_19 = SkitterFrameIt { frame: skitter_out },
-                "frame_20" => skitter_frames.frame_20 = SkitterFrameIt { frame: skitter_out },
-                "frame_21" => skitter_frames.frame_21 = SkitterFrameIt { frame: skitter_out },
-                "frame_22" => skitter_frames.frame_22 = SkitterFrameIt { frame: skitter_out },
-                "frame_23" => skitter_frames.frame_23 = SkitterFrameIt { frame: skitter_out },
-                "frame_24" => skitter_frames.frame_24 = SkitterFrameIt { frame: skitter_out },
+                "frame_0" => skitter_frames.frame_0 = SkitterFrame::Frame0(skitter_out.clone()),
+                "frame_1" => skitter_frames.frame_1 = SkitterFrame::Frame1(skitter_out.clone()),
+                "frame_2" => skitter_frames.frame_2 = SkitterFrame::Frame2(skitter_out.clone()),
+                "frame_3" => skitter_frames.frame_3 = SkitterFrame::Frame3(skitter_out.clone()),
+                "frame_4" => skitter_frames.frame_4 = SkitterFrame::Frame4(skitter_out.clone()),
+                "frame_5" => skitter_frames.frame_5 = SkitterFrame::Frame5(skitter_out.clone()),
+                "frame_6" => skitter_frames.frame_6 = SkitterFrame::Frame6(skitter_out.clone()),
+                "frame_7" => skitter_frames.frame_7 = SkitterFrame::Frame7(skitter_out.clone()),
+                "frame_8" => skitter_frames.frame_8 = SkitterFrame::Frame8(skitter_out.clone()),
+                "frame_9" => skitter_frames.frame_9 = SkitterFrame::Frame9(skitter_out.clone()),
+                "frame_10" => skitter_frames.frame_10 = SkitterFrame::Frame10(skitter_out.clone()),
+                "frame_11" => skitter_frames.frame_11 = SkitterFrame::Frame11(skitter_out.clone()),
+                "frame_12" => skitter_frames.frame_12 = SkitterFrame::Frame12(skitter_out.clone()),
+                "frame_13" => skitter_frames.frame_13 = SkitterFrame::Frame13(skitter_out.clone()),
+                "frame_14" => skitter_frames.frame_14 = SkitterFrame::Frame14(skitter_out.clone()),
+                "frame_15" => skitter_frames.frame_15 = SkitterFrame::Frame15(skitter_out.clone()),
+                "frame_16" => skitter_frames.frame_16 = SkitterFrame::Frame16(skitter_out.clone()),
+                "frame_17" => skitter_frames.frame_17 = SkitterFrame::Frame17(skitter_out.clone()),
+                "frame_18" => skitter_frames.frame_18 = SkitterFrame::Frame18(skitter_out.clone()),
+                "frame_19" => skitter_frames.frame_19 = SkitterFrame::Frame19(skitter_out.clone()),
+                "frame_20" => skitter_frames.frame_20 = SkitterFrame::Frame20(skitter_out.clone()),
+                "frame_21" => skitter_frames.frame_21 = SkitterFrame::Frame21(skitter_out.clone()),
+                "frame_22" => skitter_frames.frame_22 = SkitterFrame::Frame22(skitter_out.clone()),
+                "frame_23" => skitter_frames.frame_23 = SkitterFrame::Frame23(skitter_out.clone()),
+                "frame_24" => skitter_frames.frame_24 = SkitterFrame::Frame24(skitter_out.clone()),
+                _ => println!("No frame!"),
 
             }
 //            skitter_frames.frame_skit_name.push(&mut SkitterFrameIt { frame: skitter_out },);
