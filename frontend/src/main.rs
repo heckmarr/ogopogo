@@ -48,8 +48,9 @@ enum SkitterFrame<'a> {
     Frame22(Vec<Span<'a>>),
     Frame23(Vec<Span<'a>>),
     Frame24(Vec<Span<'a>>),
-
 }
+
+
 
 fn main() -> Result<(), io::Error> {
 
@@ -305,7 +306,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
         num_skitter += 1;
     }
     let skitter_dir = fs::read_dir("./skitters").unwrap();
-
+    let mut skitter_frames: Vec<Span> = vec![];
     //let mut skitter_frames: SkitterFrame = <SkitterFrame<'_> as Default>::default();
     for skitters in skitter_dir {
         //println!("skitter: {:?}", skitters.unwrap().path().display());
@@ -332,7 +333,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
                 }
                 skitter_out.push(Span::raw("\n"));
             }
-            /*
+
             let frame_skit_name = &format!("frame_{}", frame) as &str;
             match frame_skit_name {
                 "frame_0" => skitter_frames.frame_0 = SkitterFrameIt { frame: skitter_out },
@@ -361,7 +362,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
                 "frame_23" => skitter_frames.frame_23 = SkitterFrameIt { frame: skitter_out },
                 "frame_24" => skitter_frames.frame_24 = SkitterFrameIt { frame: skitter_out },
 
-            }*/
+            }
 //            skitter_frames.frame_skit_name.push(&mut SkitterFrameIt { frame: skitter_out },);
 
         }
