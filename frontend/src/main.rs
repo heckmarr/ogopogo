@@ -385,7 +385,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
                 let b_u8 = json_in[frame_row_col_name_b].as_u8().expect("not a value!");
                 let g_u8 = json_in[frame_row_col_name_g].as_u8().expect("not a value!");
                 let r_u8 = json_in[frame_row_col_name_r].as_u8().expect("not a value!");
-                skitter_out.push(Span::styled("B", Style::default().bg(Color::Rgb(r_u8, g_u8, b_u8))));
+                skitter_out.push(Span::styled(".", Style::default().bg(Color::Rgb(r_u8, g_u8, b_u8))));
             }
             skitter_out.push(Span::raw("\n"));
         }
