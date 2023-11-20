@@ -22,33 +22,6 @@ use opencv::imgproc::{resize, INTER_AREA};
 use opencv::highgui::{wait_key};
 //Rabbitmq imports
 
-enum SkitterFrame<'a> {
-    Frame0(Vec<Span<'a>>),
-    Frame1(Vec<Span<'a>>),
-    Frame2(Vec<Span<'a>>),
-    Frame3(Vec<Span<'a>>),
-    Frame4(Vec<Span<'a>>),
-    Frame5(Vec<Span<'a>>),
-    Frame6(Vec<Span<'a>>),
-    Frame7(Vec<Span<'a>>),
-    Frame8(Vec<Span<'a>>),
-    Frame9(Vec<Span<'a>>),
-    Frame10(Vec<Span<'a>>),
-    Frame11(Vec<Span<'a>>),
-    Frame12(Vec<Span<'a>>),
-    Frame13(Vec<Span<'a>>),
-    Frame14(Vec<Span<'a>>),
-    Frame15(Vec<Span<'a>>),
-    Frame16(Vec<Span<'a>>),
-    Frame17(Vec<Span<'a>>),
-    Frame18(Vec<Span<'a>>),
-    Frame19(Vec<Span<'a>>),
-    Frame20(Vec<Span<'a>>),
-    Frame21(Vec<Span<'a>>),
-    Frame22(Vec<Span<'a>>),
-    Frame23(Vec<Span<'a>>),
-    Frame24(Vec<Span<'a>>),
-}
 struct SkitterFrameStruct<'a> {
     frame_0: Vec<Span<'a>>,
     frame_1: Vec<Span<'a>>,
@@ -136,7 +109,6 @@ fn main() -> Result<(), io::Error> {
     let mut n = 0;
     let mut have_skitter = false;
     let mut count_frame = 0;
-    let mut data_string = "".into();
     let mut data = json::JsonValue::new_object();
     loop {
         let now = Instant::now();
@@ -210,15 +182,14 @@ fn main() -> Result<(), io::Error> {
                 //print out for debug purposes
                 //println!("{}", data.dump());
 
-                data_string = data.dump();
                 //Now that we have the file, write it out
-                let skitter_dir = fs::read_dir("./skitters").unwrap();
-                let mut skitter_count = 0;
-                for skit in skitter_dir {
-                    skitter_count += 1;
-                }
-                let p_string = format!("./skitters/skitter{:03}", skitter_count);
-                let path = path::Path::new(&p_string);
+//                let skitter_dir = fs::read_dir("./skitters").unwrap();
+//                let mut skitter_count = 0;
+//                for skit in skitter_dir {
+//                    skitter_count += 1;
+//                }
+//                let p_string = format!("./skitters/skitter{:03}", skitter_count);
+//                let path = path::Path::new(&p_string);
 
                 //fs::write(path, data_string).expect("file exists!");
 
@@ -374,7 +345,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     let json_in = json::parse(&json_string).unwrap();
 
     for frame in 0..24 {
-        let mut skitter_out: Vec<Span> = vec![];
+        let mut skitter_out = vec![];
         let frame_name = format!("frame{}", frame);
         for row in 0..20 {
             let frame_row_name = format!("{}row{}", frame_name, row);
