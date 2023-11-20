@@ -2,8 +2,8 @@ use std::{io, fs, time::Duration, path, time::Instant};
 //Tui imports
 use tui::{
     backend::{Backend, CrosstermBackend},
-    layout::{Constraint, Alignment, Direction, Layout},
-    widgets::{Paragraph, Block, Borders, Wrap},
+    layout::{Constraint, Alignment, Direction, Layout, Rect},
+    widgets::{Paragraph, Block, Borders, Wrap, Table, Row, Cell},
     style::{Color, Style, Modifier},
     text::{Span,Spans},
     terminal::Terminal,
@@ -302,12 +302,27 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
             };
 
 
+    let block = Paragraph::new(Spans::from(cam_span.clone()))
+    .block(Block::default()
+    .title("LIVE")
+    .borders(Borders::ALL)).wrap(Wrap {trim: false});
+
+    f.render_widget(block, chunks[1]);
+    let chunk_two = Table::new(vec![
+        Row::new(vec![Cell::from("\n20"),Cell::from("\n20")]).height(20)
+    ]).block(Block::default().title("Table of Peeps"))
+    .widths(&[Constraint::Length(40), Constraint::Length(40), Constraint::Percentage(10)]);
+
+    let block = Paragraph::new(Spans::from(cam_span.clone()))
+    .block(Block::default()
+    .title("LIVE")
+    .borders(Borders::ALL)).wrap(Wrap {trim: false});
+    f.render_widget(block, Rect{x: 20,y: 20,height: 20,width: 40});
     let block = Paragraph::new(Spans::from(cam_span))
     .block(Block::default()
     .title("LIVE")
     .borders(Borders::ALL)).wrap(Wrap {trim: false});
-    f.render_widget(block, chunks[1]);
-
+    f.render_widget(block, Rect{x: 0, y:30,height: 20, width: 40});
     let span_styled = format!("And only a test, cursor is at {}cx{}r Any key to end", c, r);
 
     let text_info = vec![
