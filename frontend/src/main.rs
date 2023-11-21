@@ -317,12 +317,12 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     .block(Block::default()
     .title("LIVE")
     .borders(Borders::ALL)).wrap(Wrap {trim: false});
-    f.render_widget(block, Rect{x: 20,y: 20,height: 20,width: 40});
+    f.render_widget(block, Rect{x: 20,y: 20,height: 20,width: 41});
     let block = Paragraph::new(Spans::from(cam_span))
     .block(Block::default()
     .title("LIVE")
     .borders(Borders::ALL)).wrap(Wrap {trim: false});
-    f.render_widget(block, Rect{x: 0, y:30,height: 20, width: 40});
+    f.render_widget(block, Rect{x: 0, y:30,height: 20, width: 41});
     let span_styled = format!("And only a test, cursor is at {}cx{}r Any key to end", c, r);
 
     let text_info = vec![
