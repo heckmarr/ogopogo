@@ -308,6 +308,8 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     .borders(Borders::ALL);
     f.render_widget(block.clone(), horizontal_chunks_one[0]);
     f.render_widget(block.clone(), horizontal_chunks_one[1]);
+    f.render_widget(block.clone(), horizontal_chunks_two[0]);
+    f.render_widget(block.clone(), horizontal_chunks_two[1]);
     let mut cam_span = vec![];
 
         for r in 0..20 {
