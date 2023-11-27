@@ -280,12 +280,34 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
                  Constraint::Length(42),
                  Constraint::Percentage(10),
     ].as_ref()
-    )
-    .split(f.size());
+    ).split(f.size());
+
+    let horizontal_chunks_one = Layout::default()
+    .direction(Direction::Vertical)
+    .margin(1)
+    .constraints( [
+        Constraint::Length(20),
+        Constraint::Length(20),
+        Constraint::Percentage(10),
+    ].as_ref()
+
+    ).split(chunks[1]);
+    let horizontal_chunks_two = Layout::default()
+    .direction(Direction::Vertical)
+    .margin(1)
+    .constraints( [
+        Constraint::Length(20),
+        Constraint::Length(20),
+        Constraint::Percentage(10),
+    ].as_ref()
+
+    ).split(chunks[2]);
+
     let block = Block::default()
-    .title("Block 1")
+    .title("Block Length")
     .borders(Borders::ALL);
-    f.render_widget(block, chunks[0]);
+    f.render_widget(block.clone(), horizontal_chunks_one[0]);
+    f.render_widget(block.clone(), horizontal_chunks_one[1]);
     let mut cam_span = vec![];
 
         for r in 0..20 {
@@ -297,7 +319,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
 
                     //The file will need to be loaded as well, which adds to the overall timing
                     cam_span.push(Span::styled(" ", Style::default().bg(Color::Rgb(vector_colours[r][c][2], vector_colours[r][c][1], vector_colours[r][c][0]))));
-                }
+                };
                 cam_span.push(Span::raw("\n"));
             };
 
@@ -307,22 +329,21 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
     .title("LIVE")
     .borders(Borders::ALL)).wrap(Wrap {trim: false});
 
-    f.render_widget(block, chunks[1]);
+    //f.render_widget(block, chunks[1]);
     let chunk_two = Table::new(vec![
-        Row::new(vec![Cell::from("\n20"),Cell::from("\n20")]).height(20)
-    ]).block(Block::default().title("Table of Peeps"))
-    .widths(&[Constraint::Length(40), Constraint::Length(40), Constraint::Percentage(10)]);
-
+        Row::new(vec![Spans::from(cam_span.clone()),Spans::from(cam_span.clone())]).height(40)
+    ]).widths(&[Constraint::Length(41), Constraint::Length(41)]);
+    //f.render_widget(chunk_two, Rect{x:0, y: 0, height: 50, width: 181});
     let block = Paragraph::new(Spans::from(cam_span.clone()))
     .block(Block::default()
     .title("LIVE")
     .borders(Borders::ALL)).wrap(Wrap {trim: false});
-    f.render_widget(block, Rect{x: 20,y: 20,height: 20,width: 41});
+    //f.render_widget(block, Rect{x: 20,y: 20,height: 20,width: 41});
     let block = Paragraph::new(Spans::from(cam_span))
     .block(Block::default()
     .title("LIVE")
     .borders(Borders::ALL)).wrap(Wrap {trim: false});
-    f.render_widget(block, Rect{x: 0, y:30,height: 20, width: 41});
+    //f.render_widget(block, Rect{x: 0, y:30,height: 20, width: 41});
     let span_styled = format!("And only a test, cursor is at {}cx{}r Any key to end", c, r);
 
     let text_info = vec![
@@ -341,7 +362,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
         .block(Block::default().title("Info").borders(Borders::ALL))
         .alignment(Alignment::Center)
         .wrap(Wrap {trim: true});
-    f.render_widget(text_block, chunks[2]);
+    //f.render_widget(text_block, chunks[2]);
 
 
     //read the number of stored images
@@ -448,7 +469,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
         .block(Block::default().title("Recorded").borders(Borders::ALL))
         .alignment(Alignment::Center)
         .wrap(Wrap {trim: true});
-    f.render_widget(recording_block, chunks[4]);
+    //f.render_widget(recording_block, chunks[4]);
 
 
 
@@ -459,7 +480,7 @@ fn ui<B: Backend>(f: &mut Frame<B>, c: u16, r: u16, vector_colours: [[Vec3b; 40]
         .block(Block::default().title("Timing").borders(Borders::ALL))
         .alignment(Alignment::Center)
         .wrap(Wrap {trim: true});
-    f.render_widget(recording_block, chunks[3]);
+    //f.render_widget(recording_block, chunks[3]);
 
 
 
